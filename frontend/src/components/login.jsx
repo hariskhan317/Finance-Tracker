@@ -1,12 +1,29 @@
 import React from 'react'
+import { useAuth } from '../context/AuthContext';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
 
 const login = () => {
-    const handleSubmit = (event) => {
+    const navigate = useNavigate();
+    const auth = useAuth();
+    const handleSubmit = async(event) => {
         event.preventDefault();
         const formData = new FormData(event.currentTarget); 
         const email = formData.get('email');
         const password = formData.get('password')
-        console.log(email, password)
+        try {
+            const data = await auth.login(email, password);
+            if (data.status === 200) {
+              toast.success('Sucessfull Signup');
+              navigate('/financetracker');
+            } else {
+              return toast.error('Signup failed');
+            }
+          } catch (error) {
+            console.log(error);
+            toast.error('Signup failed');
+          }
       }
     return (
         <form onSubmit={handleSubmit} className="space-y-6 mt-10" action="#" method="POST">

@@ -11,6 +11,21 @@ export const getUsers = async(req, res) => {
     }
 }
 
+export const userAuthStatus = async(req, res) => {
+    try {
+        const user = await User.findById(res.locals.jwtData.id);
+        if (!user) {
+            return res.status(400).send({ message: 'Cant find user' });
+        }
+        if (user._id.toString() !== res.locals.jwtData.id) {
+            return res.status(400).send({ message: 'Not same' });
+        }
+        res.status(200).json({ message: "OK", name: user.name, email: user.email });
+    } catch (error) {
+        return res.status(500).send({ message: 'Internal Server Error' });
+    }
+}
+
 export const userSignup = async (req, res) => {
     try {
         const { name, email, password } = req.body;
@@ -20,11 +35,14 @@ export const userSignup = async (req, res) => {
             return res.status(400).send({ message: 'Already Register' });
         }
         const user = new User({ name, email, password: hashPassword })
-        const token = createToken(name, email);
-        console.log(token)
-
         await user.save();
-        return res.status(200).send({ status: 200, message: "Successfull SignUp!", user });
+
+        res.clearCookie('auth_token') 
+        const expiryDate = new Date(Date.now() + 36000000); // 1 day
+        const token = createToken(user._id, user.email);
+        console.log('signtoken', token)
+        
+        return res.cookie('auth_token', token, { expires: expiryDate, httpOnly: true }).status(200).send({ status: 200, message: "Successfull SignUp!", user });
     } catch (error) {
         return res.status(500).send({ message: 'Internal Server Error' });
     }
@@ -41,13 +59,13 @@ export const userLogin = async (req, res) => {
         if (!verifyPassword) {
             return res.status(422).send({ message: 'Password is not same' });
         } 
-        const token = createToken(user._id, user.email);
-        res.cookie('auth_token', token, {
-            secure: true, // for HTTPS
-            httpOnly: true
-        }) 
 
-        return res.status(200).send({ status: 200, message: "Successfull Login!", name: user.name, email: user.email });
+        res.clearCookie('auth_token') 
+        const expiryDate = new Date(Date.now() + 36000000); // 1 day
+        const token = createToken(user._id, user.email);
+        console.log('logintoken', token);
+
+        return res.cookie('auth_token', token, { expires: expiryDate, httpOnly: true }).status(200).send({ status: 200, message: "Successfull Login!", name: user.name, email: user.email });
     } catch (error) {
         return res.status(500).send({ message: 'Internal Server Error' });
     }

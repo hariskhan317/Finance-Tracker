@@ -10,7 +10,7 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Auth />} />
-        <Route path="/Financetracker" element={<FinanceTracker />} />
+        <Route path="/financetracker" element={<FinanceTracker />} />
       </Routes>
     </>
   )

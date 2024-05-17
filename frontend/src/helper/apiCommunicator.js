@@ -17,7 +17,18 @@ export const userApiSignup = async (name, email, password) => {
     } 
 }
 
-export const userApiLogin = async (name, email, password) => {
+export const checkAuthStatus = async() => {
+    try {
+        const response = await axios.get('/user/auth-status');
+        console.log({response})
+        const data = await response.data;
+        return data;
+    } catch (error) {
+        console.log(error)
+    } 
+}
+
+export const userApiLogin = async (email, password) => {
     try {
         const response = await axios.post('/user/login', { email, password });
         const data = response.data;
