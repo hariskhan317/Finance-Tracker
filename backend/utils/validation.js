@@ -12,7 +12,7 @@ export const loginValidator = () => {
     ]
 }
 
-export const signinValidator = () => {
+export const signupValidator = () => {
     return [
         body('name')
             .notEmpty().withMessage('name is Required')

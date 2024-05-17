@@ -11,7 +11,7 @@ export const getUsers = async(req, res) => {
     }
 }
 
-export const userSignin = async (req, res) => {
+export const userSignup = async (req, res) => {
     try {
         const { name, email, password } = req.body;
         const hashPassword = await brcypt.hash(password, 10)
@@ -24,7 +24,7 @@ export const userSignin = async (req, res) => {
         console.log(token)
 
         await user.save();
-        return res.status(200).send({ status: 200, message: "Successfull SignIn!", user });
+        return res.status(200).send({ status: 200, message: "Successfull SignUp!", user });
     } catch (error) {
         return res.status(500).send({ message: 'Internal Server Error' });
     }
@@ -42,7 +42,10 @@ export const userLogin = async (req, res) => {
             return res.status(422).send({ message: 'Password is not same' });
         } 
         const token = createToken(user._id, user.email);
-        console.log(token)
+        res.cookie('auth_token', token, {
+            secure: true, // for HTTPS
+            httpOnly: true
+        }) 
 
         return res.status(200).send({ status: 200, message: "Successfull Login!", name: user.name, email: user.email });
     } catch (error) {
