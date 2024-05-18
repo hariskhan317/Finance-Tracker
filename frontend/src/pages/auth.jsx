@@ -10,7 +10,7 @@ const Auth = () => {
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
-          <div className="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
+          <div className="bg-white px-6 py-12 shadow-md border sm:rounded-lg sm:px-12">
             <div className='flex justify-between gap-5'>
               <button onClick={() => {
                 setToggle(true)
@@ -25,8 +25,9 @@ const Auth = () => {
                </button>
             </div>
             {/*  */}
-            {showForm === 'login' && toggle && (<Login />)}
-            {showForm === 'signup' && toggle && (<Signup />)}
+
+            {toggle && (showForm === 'login' ? <Login /> : showForm === 'signup' ? <Signup /> : null)}
+
             {/*  */}
             <div>
               <div className="relative mt-10">

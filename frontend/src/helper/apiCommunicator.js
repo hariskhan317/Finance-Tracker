@@ -20,7 +20,6 @@ export const userApiSignup = async (name, email, password) => {
 export const checkAuthStatus = async() => {
     try {
         const response = await axios.get('/user/auth-status');
-        console.log({response})
         const data = await response.data;
         return data;
     } catch (error) {
@@ -35,6 +34,16 @@ export const userApiLogin = async (email, password) => {
         if (data.status !== 200) {
             throw new Error("unable to login")
         } 
+        return data;
+    } catch (error) {
+        console.log(error)
+    } 
+}
+
+export const userLogout = async() => {
+    try {
+        const response = await axios.get('/user/logout');
+        const data = await response.data;
         return data;
     } catch (error) {
         console.log(error)
