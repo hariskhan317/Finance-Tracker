@@ -1,8 +1,8 @@
 import { Routes, Route } from 'react-router-dom';
 import Auth from './pages/auth.jsx';
 import FinanceTracker from './pages/financetracker.jsx';
-import Header from './components/header.jsx' 
-import PrivateRoutes from './components/PrivateRoutes.jsx';
+import Header from './components/Header.jsx' 
+import PrivateRoutes from './utils/PrivateRoutes.jsx';
 
 function App() {   
   return (

@@ -1,5 +1,6 @@
 import React, { useContext, createContext, useState, useEffect } from 'react'; 
 import { userApiSignup, userApiLogin, checkAuthStatus, userLogout } from '../helper/apiCommunicator'
+
 const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {

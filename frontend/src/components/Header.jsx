@@ -13,10 +13,10 @@ const Header = () => {
             <h1 className='text-white font-medium text-2xl'>Finance Tracker</h1>
       </div>
       {auth.islogin && (
-                <div className='text-white font-medium gap-10 flex'>
-                <button>Dropdown</button>
-                <button onClick={handleLogout}>Logout</button>
-              </div>  
+        <div className='text-white font-medium gap-10 flex'>
+          <button>Dropdown</button>
+          <button onClick={handleLogout}>Logout</button>
+        </div>  
       )}
     </div>
   )
