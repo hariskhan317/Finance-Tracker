@@ -2,14 +2,12 @@ import jwt from "jsonwebtoken";
 
 export const createToken = (id, email) => {
     const payload = { id, email };
-    const token = jwt.sign(payload, process.env.JWT_TOKEN);
-    console.log({token})
+    const token = jwt.sign(payload, process.env.JWT_TOKEN); 
     return token;
 }
 
 export const verifyToken = async(req,res, next) => {
-    const token = await req.cookies.auth_token; 
-    console.log('verifyTokenddd', token)
+    const token = await req.cookies.auth_token;  
     if (!token) {
         return res.status(422).send('Cant find the token');
     }

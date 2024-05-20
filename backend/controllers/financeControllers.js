@@ -12,7 +12,7 @@ export const getRecord = async (req, res) => {
 
 export const addRecord = async(req, res) => {
     try {
-        const { description, amount, category, paymentMethod } = req.body;
+        const { description, amount, category, paymentMethod, date } = req.body; 
         // user Verifications
         // const user = await User.findById(res.locals.jwtData.id);
         // if (!user) {
@@ -25,11 +25,38 @@ export const addRecord = async(req, res) => {
             
         // }
         // // 
-        const records = new Record({description, amount, category, paymentMethod})
+        const records = new Record({description, amount, category, paymentMethod, date})
         await records.save();
     
-        res.status(200).send({status:'200', message: "success", records})
+        return res.status(200).send({status:'200', message: "success", records})
     } catch (error) {
         res.status(400).send({message: "failed", cause: error.message})
     }
 }
+
+export const deleteRecord = async (req, res) => {
+    try {
+        const recordId = req.params.recordId;
+
+        // Find the record by ID to ensure it exists
+        const recordToDelete = await Record.findById(recordId);
+        if (!recordToDelete) {
+            return res.status(422).send({ message: "Couldn't find the record" });
+        }
+
+        // Delete the record
+        await Record.findByIdAndDelete(recordId);
+
+        // Fetch the updated list of records
+        const updatedRecords = await Record.find();
+
+        console.log({ recordId });
+        console.log({ updatedRecords });
+
+        return res.status(200).send({ message: "Successfully deleted", records: updatedRecords });
+
+    } catch (error) {
+        console.error(error);
+        return res.status(400).send({ message: "Failed", cause: error.message });
+    }
+};

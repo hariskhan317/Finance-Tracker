@@ -16,21 +16,26 @@ const Model = ({ setShowModel }) => {
     const category = formData.get("category");
     const amount = formData.get("amount");
     const paymentMethod = formData.get("paymentMethod");
-    const id = generateRandomId();
-    console.log(); 
+    const now = new Date();
+    const date = now.toLocaleDateString();  
+
+    // const id = generateRandomId();
+    // console.log(id, description, amount, category, paymentMethod, date); 
     try {
-      const data = await finance.addRecord(description, amount, category, paymentMethod);
-      console.log({data});
-      
+      const data = await finance.addRecord(description, amount, category, paymentMethod, date);
+      if (data.status === 200) {
+        finance.refreshList();
+        return toast.success('Successfully Added!');
+      } 
+      return toast.error('Cant Add');
     } catch (error) {
       console.log(error);
-      toast.error('failed');
     }
 
   }
 
   return (
-    <div className='absolute left-0 right-0 mx-auto border-2 bg-gray-50 h-auto p-5 w-1/2 shadow-lg mx-auto z-20'>
+    <div className='absolute top-0 bottom-0 left-0 right-0 mx-auto my-auto border-2 bg-gray-50 max-h-min p-5 w-1/2 shadow-lg mx-auto z-20'>
       <div className='flex justify-between'>
         <h1 className='text-3xl font-semibold'>Add Expence</h1>
         <button onClick={() => setShowModel(false)} className='absolute right-5'> 

@@ -57,10 +57,19 @@ export const getRecordApi = async () => {
     } 
 } 
 
-export const addRecordApi = async (description, amount, category, paymentMethod) => {
+export const addRecordApi = async (description, amount, category, paymentMethod, date) => {
     try {
-        const res = await axios.post(`/financial-records/add-record`, {description, amount, category, paymentMethod});
-        
+        const res = await axios.post(`/financial-records/add-record`, { description, amount, category, paymentMethod, date });
+        return res;
+    } catch (error) {
+        console.log(error)
+    } 
+} 
+
+export const deleteRecordApi = async(recordId) => {
+    try {
+        const res = await axios.delete(`/financial-records/delete-record/${recordId}`);
+        return res;
     } catch (error) {
         console.log(error)
     } 

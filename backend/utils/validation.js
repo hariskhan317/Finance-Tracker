@@ -35,6 +35,8 @@ export const recordValidator = () => {
         body('paymentMethod')
             .isString().withMessage('only String is allowed')
             .notEmpty().withMessage('paymentMethod is Required'),
+        body('date') 
+            .notEmpty().withMessage('date is Required'),
     ]
 }
 
