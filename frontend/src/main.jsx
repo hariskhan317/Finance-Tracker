@@ -14,9 +14,12 @@ axios.defaults.withCredentials = true
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <AuthProvider>
-    <BrowserRouter>
-        <ToastContainer  position="bottom-right" />
-        <App />
-      </BrowserRouter>
+    <FinanceProvider>
+      <BrowserRouter>
+          <ToastContainer  position="bottom-right" />
+          <App />
+        </BrowserRouter>
+    </FinanceProvider>
+
 </AuthProvider>
 )

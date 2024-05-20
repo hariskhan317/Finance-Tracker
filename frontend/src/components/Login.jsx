@@ -17,9 +17,9 @@ const login = () => {
             if (data.status === 200) {
               toast.success('Sucessfull Signup');
               navigate('/financetracker');
-            } else {
-              return toast.error('Signup failed');
-            }
+            } 
+            return toast.error('Signup failed');
+            
           } catch (error) {
             console.log(error);
             toast.error('Signup failed');

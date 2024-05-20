@@ -39,14 +39,14 @@ export const AuthProvider = ({ children }) => {
     }
 
     const logout = async() => {
-        const data = await userLogout();
+        const data = await userLogout(); 
         setIsLogin(false);
         setIsUser(null);
         window.location.href = '/';
         return data;
     }
     
-    const value = {
+    const authValue = {
         login,
         signup,
         logout,
@@ -54,7 +54,7 @@ export const AuthProvider = ({ children }) => {
         isUser, 
     }
 
-    return (<AuthContext.Provider value={value}>{children}</AuthContext.Provider>  )
+    return (<AuthContext.Provider value={authValue}>{children}</AuthContext.Provider>  )
 }
  
 export const useAuth = () => useContext(AuthContext);

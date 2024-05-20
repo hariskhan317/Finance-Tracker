@@ -3,12 +3,13 @@ import jwt from "jsonwebtoken";
 export const createToken = (id, email) => {
     const payload = { id, email };
     const token = jwt.sign(payload, process.env.JWT_TOKEN);
+    console.log({token})
     return token;
 }
 
 export const verifyToken = async(req,res, next) => {
-    const token = await req.cookies.auth_token;
-    console.log('verifyToken', token)
+    const token = await req.cookies.auth_token; 
+    console.log('verifyTokenddd', token)
     if (!token) {
         return res.status(422).send('Cant find the token');
     }
@@ -16,10 +17,8 @@ export const verifyToken = async(req,res, next) => {
         if (error) {
             console.log(error);
             return res.status(422).send({ message: "Token verification failed", cause: error.message})
-        } else {
-            res.locals.jwtData = success;
-            return next();
-        }
+        } 
+        res.locals.jwtData = success;
+        return next();
     })
-    
 }

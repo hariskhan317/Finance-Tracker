@@ -15,9 +15,26 @@ export const loginValidator = () => {
 export const signupValidator = () => {
     return [
         body('name')
-            .notEmpty().withMessage('name is Required')
+            .notEmpty().withMessage('name is Required') 
             .isLength({ min: 3, }).withMessage('name lenght is short'),
             loginValidator(),
+    ]
+}
+
+export const recordValidator = () => {
+    return [
+        body('description')
+            .notEmpty().withMessage('description is Required')
+            .isLength({ min: 3, }).withMessage('Description lenght is short'),
+        body('amount') 
+            //.isNumeric().withMessage('only String is allowed')
+            .notEmpty().withMessage('amount is Required'),
+        body('category')
+            .isString().withMessage('only String is allowed')
+            .notEmpty().withMessage('category is Required'),
+        body('paymentMethod')
+            .isString().withMessage('only String is allowed')
+            .notEmpty().withMessage('paymentMethod is Required'),
     ]
 }
 

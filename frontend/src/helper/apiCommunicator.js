@@ -1,9 +1,5 @@
 import axios from 'axios';
 
-export const userLogin = () => {
-    console.log('userLogin')
-}
-
 export const userApiSignup = async (name, email, password) => {
     try {
         const response = await axios.post('/user/signup', { name, email, password });
@@ -49,3 +45,23 @@ export const userLogout = async() => {
         console.log(error)
     } 
 }
+
+export const getRecordApi = async () => {
+    try {
+        const response = await axios.get('/financial-records/');
+        const data = response.data;
+        return data;
+        
+    } catch (error) {
+        console.log(error)
+    } 
+} 
+
+export const addRecordApi = async (description, amount, category, paymentMethod) => {
+    try {
+        const res = await axios.post(`/financial-records/add-record`, {description, amount, category, paymentMethod});
+        
+    } catch (error) {
+        console.log(error)
+    } 
+} 

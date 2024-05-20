@@ -39,8 +39,7 @@ export const userSignup = async (req, res) => {
 
         res.clearCookie('auth_token') 
         const expiryDate = new Date(Date.now() + 36000000); // 1 day
-        const token = createToken(user._id, user.email);
-        console.log('signtoken', token)
+        const token = createToken(user._id, user.email); 
         
         return res.cookie('auth_token', token, { expires: expiryDate, httpOnly: true }).status(200).send({ status: 200, message: "Successfull SignUp!", user });
     } catch (error) {
@@ -62,8 +61,7 @@ export const userLogin = async (req, res) => {
 
         res.clearCookie('auth_token') 
         const expiryDate = new Date(Date.now() + 36000000); // 1 day
-        const token = createToken(user._id, user.email);
-        console.log('logintoken', token);
+        const token = createToken(user._id, user.email); 
 
         return res.cookie('auth_token', token, { expires: expiryDate, httpOnly: true }).status(200).send({ status: 200, message: "Successfull Login!", name: user.name, email: user.email });
     } catch (error) {
@@ -80,7 +78,7 @@ export const userLogout = async (req, res) => {
         if (user._id.toString() !== res.locals.jwtData.id) {
             return res.status(400).send({ message: 'Not same' });
         }
-        return res.clearCookie('auth_token').status(200).json({ status: 200 });;
+        return res.clearCookie('auth_token').status(200).json({ status: 200 });
     } catch (error) {
         return res.status(500).send({ message: 'Internal Server Error', cause:error.message });
     }
