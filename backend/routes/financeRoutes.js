@@ -1,11 +1,14 @@
-import { Router } from 'express'
-import { getRecord, addRecord, deleteRecord } from '../controllers/financeControllers.js'
+import { Router } from 'express' 
+import { createBudget, getBudget, addExpense, getExpense, deleteExpense } from '../controllers/financeControllers.js'
 import { verifyToken } from "../utils/tokenManager.js";
-import { recordValidator, validate } from '../utils/validation.js';
+import { budgetValidator, expenseValidator, validate } from '../utils/validation.js';
 
-const financeRoutes = Router();
-financeRoutes.get('/',verifyToken, getRecord);
-financeRoutes.post('/add-record', verifyToken, recordValidator(), validate, addRecord);
-financeRoutes.delete('/delete-record/:recordId',verifyToken, deleteRecord);
+const financeRoutes = Router(); 
+
+financeRoutes.get('/getBudget', verifyToken, getBudget);
+financeRoutes.get('/getExpense',verifyToken, getExpense);
+financeRoutes.post('/create-budget', verifyToken, budgetValidator(), validate, createBudget); 
+financeRoutes.post('/add-expense', verifyToken, expenseValidator(), validate, addExpense); 
+financeRoutes.delete('/delete-expense/:expenseId', verifyToken, deleteExpense);
 
 export default financeRoutes;

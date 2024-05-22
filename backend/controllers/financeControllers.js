@@ -1,59 +1,72 @@
-import { Record } from '../models/recordModel.js';
-import { User } from '../models/userModel.js'
+import { Budget } from '../models/budgetModel.js'; 
+import { Expense } from '../models/expenseModel.js'
 
-export const getRecord = async (req, res) => {
-    try {
-        const records = await Record.find();  
-        res.status(200).send(records)
-    } catch (error) {
-        res.status(400).send({message: "failed", cause: error.message})
-    }
-}
 
-export const addRecord = async(req, res) => {
+export const createBudget = async(req, res) => {
     try {
-        const { description, amount, category, paymentMethod, date } = req.body; 
-        // user Verifications
-        // const user = await User.findById(res.locals.jwtData.id);
-        // if (!user) {
-        //     return res.status(400).status("cant find the user");
-        // }
-        // if (user._id !== res.locals.jwtData.id) {
-        //     return res.status(400).status("cant Match the user");
-        // }
-        // if (verification) {
-            
-        // }
-        // // 
-        const records = new Record({description, amount, category, paymentMethod, date})
-        await records.save();
+        const { budgetName, amount, color } = req.body; 
+
+        const budget = new Budget({budgetName, amount, color})
+        await budget.save();
     
-        return res.status(200).send({status:'200', message: "success", records})
+        return res.status(200).send({status:'200', message: "success", budget})
     } catch (error) {
         res.status(400).send({message: "failed", cause: error.message})
     }
 }
 
-export const deleteRecord = async (req, res) => {
+export const getBudget = async (req, res) => {
     try {
-        const recordId = req.params.recordId;
+        const budgets = await Budget.find();  
+        return res.status(200).send(budgets);
+    } catch (error) {
+        res.status(400).send({message: "failed", cause: error.message})
+    }
+}
+ 
+export const addExpense = async(req, res) => {
+    try {
+        const { expenseName, budgetName, amount, date, color } = req.body; 
+
+        const expense = new Expense({expenseName, budgetName, amount, date, color})
+        await expense.save();
+    
+        return res.status(200).send({status:'200', message: "success", expense})
+    } catch (error) {
+        res.status(400).send({message: "failed", cause: error.message})
+    }
+}
+
+export const getExpense = async(req, res) => {
+    try {
+        const expenses = await Expense.find();
+    
+        return res.status(200).send(expenses)
+    } catch (error) {
+        res.status(400).send({message: "failed", cause: error.message})
+    }
+}
+
+export const deleteExpense = async (req, res) => {
+    try {
+        const expenseId = req.params.expenseId;
 
         // Find the record by ID to ensure it exists
-        const recordToDelete = await Record.findById(recordId);
-        if (!recordToDelete) {
-            return res.status(422).send({ message: "Couldn't find the record" });
+        const expenseToDelete = await Expense.findById(expenseId);
+        if (!expenseToDelete) {
+            return res.status(422).send({ message: "Couldn't find the expense" });
         }
 
         // Delete the record
-        await Record.findByIdAndDelete(recordId);
+        await Expense.findByIdAndDelete(expenseId);
 
         // Fetch the updated list of records
-        const updatedRecords = await Record.find();
+        const updatedExpense = await Expense.find();
 
-        console.log({ recordId });
-        console.log({ updatedRecords });
+        console.log({ expenseId });
+        console.log({ updatedExpense });
 
-        return res.status(200).send({ message: "Successfully deleted", records: updatedRecords });
+        return res.status(200).send({ message: "Successfully deleted", expenses: updatedExpense });
 
     } catch (error) {
         console.error(error);

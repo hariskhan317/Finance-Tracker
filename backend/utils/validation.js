@@ -21,22 +21,32 @@ export const signupValidator = () => {
     ]
 }
 
-export const recordValidator = () => {
+export const budgetValidator = () => {
     return [
-        body('description')
-            .notEmpty().withMessage('description is Required')
-            .isLength({ min: 3, }).withMessage('Description lenght is short'),
-        body('amount') 
-            //.isNumeric().withMessage('only String is allowed')
-            .notEmpty().withMessage('amount is Required'),
-        body('category')
-            .isString().withMessage('only String is allowed')
-            .notEmpty().withMessage('category is Required'),
-        body('paymentMethod')
-            .isString().withMessage('only String is allowed')
-            .notEmpty().withMessage('paymentMethod is Required'),
-        body('date') 
-            .notEmpty().withMessage('date is Required'),
+        body('budgetName')
+            .notEmpty().withMessage('Budget is Required')
+            .isLength({ min: 3, }).withMessage('Budget lenght is short'),
+        body('amount')  
+            .notEmpty().withMessage('Amount is Required'), 
+        body('color')  
+            .notEmpty().withMessage('color is Required'), 
+    ]
+}
+
+export const expenseValidator = () => {
+    return [
+        body('expenseName')
+            .notEmpty().withMessage('Expense is Required')
+            .isLength({ min: 3, }).withMessage('Expense lenght is short'),
+        body('budgetName')
+            .notEmpty().withMessage('Budget is Required')
+            .isLength({ min: 3, }).withMessage('Budget lenght is short'),
+        body('amount')  
+            .notEmpty().withMessage('Amount is Required'), 
+        body('date')  
+            .notEmpty().withMessage('Date is Required'), 
+        body('color')  
+            .notEmpty().withMessage('color is Required'), 
     ]
 }
 

@@ -1,25 +1,26 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { addRecordApi, getRecordApi, deleteRecordApi } from '../helper/apiCommunicator';
+import { addBudgetApi, getBudgetApi, addExpenseApi, getExpenseApi, deleteExpenseApi } from '../helper/apiCommunicator';
  
 const FinanceContext = createContext(null);
 
 export const FinanceProvider = ({ children }) => {
 
-    const [records, setRecords] = useState([]);
+    const [budgets, setBudgets] = useState([]);
+    const [expenses, setExpenses] = useState([]);
     const [refresh, setRefresh] = useState(false);
 
-    const addRecord = async(description, amount, category, paymentMethod, date) => { 
+    const addBudget = async(budgetName, amount, color) => { 
         try {
-            const res = await addRecordApi(description, amount, category, paymentMethod, date);
+            const res = await addBudgetApi(budgetName, amount, color);
             return res;
         } catch (error) {
             console.log(error);
         }
     }
 
-    const deleteRecord = async(recordId) => { 
+    const addExpense = async(expenseName, budgetName, amount, date, color) => { 
         try {
-            const res = await deleteRecordApi(recordId);
+            const res = await addExpenseApi(expenseName, budgetName, amount, date, color);
             return res;
         } catch (error) {
             console.log(error);
@@ -27,17 +28,37 @@ export const FinanceProvider = ({ children }) => {
     }
 
     useEffect(() => { 
-        const getRecord = async () => {
+        const getBudgetList = async () => {
             try {
-                const data = await getRecordApi(); 
-                setRecords(data);
+                const data = await getBudgetApi(); 
+                setBudgets(data); 
                 return data;
             } catch (error) {
                 console.log(error);
             }
         }
-        getRecord();
+        getBudgetList();
+
+        const getExpenseList = async () => {
+            try {
+                const data = await getExpenseApi(); 
+                setExpenses(data); 
+                return data;
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        getExpenseList();
     }, [refresh])
+
+        const deleteExpense = async(expenseId) => { 
+        try {
+            const res = await deleteExpenseApi(expenseId);
+            return res;
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     const refreshList = () => {
         setRefresh(prev => !prev); 
@@ -46,10 +67,12 @@ export const FinanceProvider = ({ children }) => {
 
 
     const financeValue = {
-        records,
-        addRecord,
+        budgets,
+        expenses,
+        addBudget,
         refreshList,
-        deleteRecord,
+        addExpense,
+        deleteExpense,
     };
 
     return (<FinanceContext.Provider value={financeValue}>{children}</FinanceContext.Provider>)

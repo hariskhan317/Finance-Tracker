@@ -1,24 +1,40 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useAuth } from '../context/AuthContext';
-import Table from '../components/Table';
-import Model from '../components/Model';
+import Table from '../components/featureComponent/Table'; 
+import CreateBudget from '../components/featureComponent/CreateBudget';
+import NewExpense from '../components/featureComponent/NewExpense';
+import BudgetList from '../components/featureComponent/BudgetList';
+import { useFinance } from '../context/FinanceContext';
 
 const FinanceTracker = () => {
-  const [showModel, setShowModel] = useState(false);
   const auth = useAuth();
+  const finance = useFinance();
+
 
   return (
-    <div className='px-20 py-10'>
-      {/* black screen */}
-      {showModel && <div onClick={() => setShowModel(false)} className='w-full h-full bg-black/75 absolute top-0 left-0'></div>}
+    <div className='px-20 py-10'> 
       <div className='flex pt-4 pb-8 justify-between'>
-        <h1 className='text-4xl font-medium'>Welcome {auth.isUser.name}! Here are your Finances</h1>
-        <button onClick={()=>setShowModel(true)} className='py-2.5 px-4 rounded font-medium bg-indigo-500 text-white'>Add Expence</button>
+        <h1 className='text-4xl font-semibold capitalize'>Welcome {auth.isUser.name}!</h1> 
       </div>
-      <div className='bg-gray-100 p-3 rounded-md shadow-md border'>
+      {/* CreateBudget and NewExpense component */}
+      <div className='grid grid-cols-1 md:grid-cols-2 gap-8 mt-6'>
+        <CreateBudget />
+        <NewExpense finance={finance} />
+      </div>
+      {/* budget list */}
+      <div className='mt-16'> 
+        <h1 className='text-4xl font-semibold capitalize py-3'>exisiting budgets</h1>
+        <div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5'>
+          {finance.budgets.map((budget) => (
+            <BudgetList budget={budget} />
+          ))}
+        </div>
+      </div>
+      {/* table */}
+      <div className='mt-16 pb-10'>
+        <h1 className='text-4xl font-semibold capitalize py-3'>expenses</h1>
         <Table />
-      </div>
-      {showModel && <Model setShowModel={setShowModel} />}
+      </div> 
       
     </div>
   )

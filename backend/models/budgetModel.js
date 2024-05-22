@@ -1,12 +1,12 @@
 import mongoose from "mongoose";
 
-const recordSchema = new mongoose.Schema({
+const budgetSchema = new mongoose.Schema({
     // userId: {
     //     type: String,
     //     required: true,
     //     unique: true
     // },
-    description: {
+    budgetName: {
         type: String,
         required: true,
     },
@@ -14,18 +14,10 @@ const recordSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    category: {
-        type: String,
-        required: true,
-    },
-    paymentMethod: {
-        type: String,
-        required: true,
-    },
-    date: {
+    color: {
         type: String,
         required: true,
     }
 })
 
-export const Record = mongoose.model('Record',recordSchema)
+export const Budget = mongoose.model('Budget', budgetSchema)
