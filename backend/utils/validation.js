@@ -26,10 +26,11 @@ export const budgetValidator = () => {
         body('budgetName')
             .notEmpty().withMessage('Budget is Required')
             .isLength({ min: 3, }).withMessage('Budget lenght is short'),
-        body('amount')  
-            .notEmpty().withMessage('Amount is Required'), 
+        body('budgetAmount')  
+            .notEmpty().withMessage('Budget Amount is Required')
+            .isNumeric().withMessage('Budget Amount must be number'),
         body('color')  
-            .notEmpty().withMessage('color is Required'), 
+            .notEmpty().withMessage('color is Required'),
     ]
 }
 
@@ -41,8 +42,9 @@ export const expenseValidator = () => {
         body('budgetName')
             .notEmpty().withMessage('Budget is Required')
             .isLength({ min: 3, }).withMessage('Budget lenght is short'),
-        body('amount')  
-            .notEmpty().withMessage('Amount is Required'), 
+        body('expenseAmount')  
+            .notEmpty().withMessage('Expense Amount is Required')
+            .isNumeric().withMessage('Expense Amount must be number'), 
         body('date')  
             .notEmpty().withMessage('Date is Required'), 
         body('color')  

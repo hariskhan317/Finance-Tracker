@@ -46,9 +46,9 @@ export const userLogout = async() => {
     } 
 }
 
-export const addBudgetApi = async(budgetName, amount, color) => {
+export const addBudgetApi = async(budgetName, budgetAmount, color) => {
     try {
-        const res = await axios.post('/financial-records/create-budget', { budgetName, amount, color });
+        const res = await axios.post('/financial-records/create-budget', { budgetName, budgetAmount, color });
         return res;
     } catch (error) {
         console.log(error)
@@ -68,16 +68,16 @@ export const getBudgetApi = async() => {
 export const getExpenseApi = async() => {
     try {
         const response = await axios.get('/financial-records/getExpense');
-        const data = response.data;
+        const data = response.data; 
         return data;
     } catch (error) {
         console.log(error)
     } 
 }
 
-export const addExpenseApi = async(expenseName, budgetName, amount, date, color) => {
+export const addExpenseApi = async(expenseName, budgetName, expenseAmount, date, color) => {
     try {
-        const res = await axios.post('/financial-records/add-expense', { expenseName, budgetName, amount, date, color });
+        const res = await axios.post('/financial-records/add-expense', { expenseName, budgetName, expenseAmount, date, color });
         return res;
     } catch (error) {
         console.log(error)
@@ -93,31 +93,11 @@ export const deleteExpenseApi = async(expenseId) => {
     } 
 } 
 
-
-// export const getRecordApi = async() => {
-//     try {
-//         const response = await axios.get('/financial-records/');
-//         const data = response.data;
-//         return data;
-//     } catch (error) {
-//         console.log(error)
-//     } 
-// } 
-
-// export const addRecordApi = async (description, amount, category, paymentMethod, date) => {
-//     try {
-//         const res = await axios.post(`/financial-records/add-record`, { description, amount, category, paymentMethod, date });
-//         return res;
-//     } catch (error) {
-//         console.log(error)
-//     } 
-// } 
-
-// export const deleteRecordApi = async(recordId) => {
-//     try {
-//         const res = await axios.delete(`/financial-records/delete-record/${recordId}`);
-//         return res;
-//     } catch (error) {
-//         console.log(error)
-//     } 
-// } 
+export const deleteBudgetApi = async(budgetId) => {
+    try {
+        const res = await axios.delete(`/financial-records/delete-budget/${budgetId}`);
+        return res;
+    } catch (error) {
+        console.log(error)
+    } 
+} 

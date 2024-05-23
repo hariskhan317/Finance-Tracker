@@ -1,21 +1,18 @@
 import mongoose from "mongoose";
 
-const expenseSchema = new mongoose.Schema({
-    // userId: {
-    //     type: String,
-    //     required: true,
-    //     unique: true
-    // },
+export const expenseSchema = new mongoose.Schema({
     expenseName: {
         type: String,
         required: true,
+        // unique: true,
+        // sparse: true
     },
     budgetName: {
         type: String,
         required: true,
     },
-    amount: {
-        type: String,
+    expenseAmount: {
+        type: Number,
         required: true,
     },
     date: {

@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { addBudgetApi, getBudgetApi, addExpenseApi, getExpenseApi, deleteExpenseApi } from '../helper/apiCommunicator';
+import { addBudgetApi, getBudgetApi, addExpenseApi, getExpenseApi, deleteExpenseApi, deleteBudgetApi } from '../helper/apiCommunicator';
  
 const FinanceContext = createContext(null);
 
@@ -9,18 +9,18 @@ export const FinanceProvider = ({ children }) => {
     const [expenses, setExpenses] = useState([]);
     const [refresh, setRefresh] = useState(false);
 
-    const addBudget = async(budgetName, amount, color) => { 
+    const addBudget = async(budgetName, budgetAmount, color) => { 
         try {
-            const res = await addBudgetApi(budgetName, amount, color);
+            const res = await addBudgetApi(budgetName, budgetAmount, color);
             return res;
         } catch (error) {
             console.log(error);
         }
     }
 
-    const addExpense = async(expenseName, budgetName, amount, date, color) => { 
+    const addExpense = async(expenseName, budgetName, expenseAmount, date, color) => { 
         try {
-            const res = await addExpenseApi(expenseName, budgetName, amount, date, color);
+            const res = await addExpenseApi(expenseName, budgetName, expenseAmount, date, color);
             return res;
         } catch (error) {
             console.log(error);
@@ -51,9 +51,18 @@ export const FinanceProvider = ({ children }) => {
         getExpenseList();
     }, [refresh])
 
-        const deleteExpense = async(expenseId) => { 
+    const deleteExpense = async(expenseId) => { 
         try {
             const res = await deleteExpenseApi(expenseId);
+            return res;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const deleteBudget = async (budgetId) => {
+        try {
+            const res = await deleteBudgetApi(budgetId);
             return res;
         } catch (error) {
             console.log(error);
@@ -63,8 +72,6 @@ export const FinanceProvider = ({ children }) => {
     const refreshList = () => {
         setRefresh(prev => !prev); 
     }
-    
-
 
     const financeValue = {
         budgets,
@@ -72,7 +79,8 @@ export const FinanceProvider = ({ children }) => {
         addBudget,
         refreshList,
         addExpense,
-        deleteExpense,
+        deleteExpense, 
+        deleteBudget,
     };
 
     return (<FinanceContext.Provider value={financeValue}>{children}</FinanceContext.Provider>)

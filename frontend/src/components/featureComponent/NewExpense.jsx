@@ -7,10 +7,9 @@ const NewExpense = ({finance}) => {
         const formData = new FormData(event.currentTarget);
         const expenseName = formData.get("expenseName")
         const budgetName = formData.get("budgetName"); 
-        const amount = formData.get("amount"); 
+        const expenseAmount = formData.get("amount"); 
         const now = new Date();
-        const date = now.toLocaleDateString();  
-        //finance.budgets.map((budget) => console.log(budget));
+        const date = now.toLocaleDateString();   
         const activeColor = finance.budgets
         .filter((item) => item.budgetName === budgetName)
             .map((item) => item.color);
@@ -18,7 +17,7 @@ const NewExpense = ({finance}) => {
     
    
         try {
-        const data = await finance.addExpense(expenseName, budgetName, amount, date, color);
+        const data = await finance.addExpense(expenseName, budgetName, expenseAmount, date, color);
         if (data.status === 200) {
             finance.refreshList();
             return toast.success('Successfully Added!');
@@ -48,7 +47,7 @@ const NewExpense = ({finance}) => {
                         <label className="block uppercase tracking-wide text-gray-700 text-sm font-bold mb-2">Budget Category</label>
                         <div className="relative">
                             <select name="budgetName" className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                                {finance.budgets.map((budget) => (
+                                {finance?.budgets?.map((budget) => (
                                     <option key={budget._id} value={budget.budgetName}>{budget.budgetName}</option>                                    
                                 ))}
                             </select>

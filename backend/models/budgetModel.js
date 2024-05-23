@@ -1,18 +1,18 @@
 import mongoose from "mongoose";
 
-const budgetSchema = new mongoose.Schema({
-    // userId: {
-    //     type: String,
-    //     required: true,
-    //     unique: true
-    // },
+export const budgetSchema = new mongoose.Schema({
     budgetName: {
         type: String,
         required: true,
+        // unique: true,
+        sparse: true
     },
-    amount: {
-        type: String,
+    budgetAmount: {
+        type: Number,
         required: true,
+    },
+    expenseAmount: {
+        type: Number, 
     },
     color: {
         type: String,

@@ -15,11 +15,10 @@ const login = () => {
         try {
             const data = await auth.login(email, password);
             if (data.status === 200) {
-              toast.success('Sucessfull Signup');
-              navigate('/financetracker');
-            } 
-            return toast.error('Signup failed');
-            
+              toast.success('Sucessfull Login');
+              return navigate('/financetracker');
+            }  
+            return toast.error('Login failed');
           } catch (error) {
             console.log(error);
             toast.error('Signup failed');

@@ -7,26 +7,27 @@ const CreateBudget = () => {
 
     const finance = useFinance();
     const generateRandomColor = () => {
-      return  Math.floor(Math.random()*16777215).toString(16);
+        const r = Math.floor(Math.random() * 128); // 0 to 127
+        const g = Math.floor(Math.random() * 128); // 0 to 127
+        const b = Math.floor(Math.random() * 128); // 0 to 127
+        return `${((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1)}`;
     }
     const handleSubmit = async(event) => {
         event.preventDefault();
         const formData = new FormData(event.currentTarget);
         const budgetName = formData.get("budgetName"); 
-        const amount = formData.get("amount");  
+        const budgetAmount = formData.get("amount");  
         const color = generateRandomColor();
-  
-        // const id = generateRandomId();
-        // console.log(id, description, amount, category, paymentMethod); 
         try {
-        const data = await finance.addBudget(budgetName, amount, color);
+        const data = await finance.addBudget(budgetName, budgetAmount, color);
         if (data.status === 200) {
-            finance.refreshList();
-            return toast.success('Successfully Added!');
+            finance.refreshList(); 
+            event.currentTarget.reset(); // Clear the form inputs
+            return toast.success(`Successfully Added ${budgetName}!`);
         } 
         return toast.error('Cant Add');
         } catch (error) {
-        console.log(error);
+            console.log(error);
         }
   
     }

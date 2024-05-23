@@ -25,9 +25,11 @@ const FinanceTracker = () => {
       <div className='mt-16'> 
         <h1 className='text-4xl font-semibold capitalize py-3'>exisiting budgets</h1>
         <div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5'>
-          {finance.budgets.map((budget) => (
-            <BudgetList budget={budget} />
-          ))}
+          {finance?.budgets?.length > 0 ?
+            (finance?.budgets?.map((budget) => (
+              <BudgetList key={budget._id} budget={budget} />
+            ))) : (<p className='font-medium p-5'>No Data to show</p>
+          )}
         </div>
       </div>
       {/* table */}
