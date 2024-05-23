@@ -13,7 +13,7 @@ const FinanceTracker = () => {
 
   return (
     <div className='px-20 py-10'> 
-      <div className='flex pt-4 pb-8 justify-between'>
+      <div className='flex pt-4 pb-8 justify-between'> 
         <h1 className='text-4xl font-semibold capitalize'>Welcome {auth.isUser.name}!</h1> 
       </div>
       {/* CreateBudget and NewExpense component */}

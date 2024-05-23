@@ -16,7 +16,7 @@ export const AuthProvider = ({ children }) => {
             }
         }
         handleAuthStatus();
-    },[])
+    },[islogin])
   
     const signup = async(name, email, password) => {
         try {

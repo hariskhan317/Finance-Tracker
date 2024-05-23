@@ -4,8 +4,6 @@ const budgetSchema = new mongoose.Schema({
     budgetName: {
         type: String,
         required: true,
-        // unique: true,
-        sparse: true
     },
     budgetAmount: {
         type: Number,
@@ -24,8 +22,6 @@ const expenseSchema = new mongoose.Schema({
     expenseName: {
         type: String,
         required: true,
-        // unique: true,
-        // sparse: true
     },
     budgetName: {
         type: String,

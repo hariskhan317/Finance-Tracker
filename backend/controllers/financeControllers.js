@@ -151,12 +151,23 @@ export const deleteBudget = async (req, res) => {
             return res.status(422).send("Couldn't match");
         }
 
-        const { budget } = user; 
-        const budgetId = req.params.budgetId;
+        const { budget, expense } = user; 
+        const budgetId = req.params.budgetId; 
         
+        // if(expense.budgetName === budget.budgetName)
+        const findExpense = budget.filter((budgetItem) => {
+            return expense.filter((expenseItem) => budgetItem.budgetName === expenseItem.budgetName)
+        })
+
+
+            
         const findBudgetToDelete = budget.find(budgetItem => budgetItem.id === budgetId);
 
-        console.log(findBudgetToDelete)
+        const checkInExpense = expense.find(expenseItem => findBudgetToDelete.budgetName === expenseItem.budgetName)
+        if (checkInExpense) {
+            return res.status(422).send({ message: "Cant delete the budget please Delete the expenses first specfic to the budget tag" });
+        }
+
         if (!findBudgetToDelete) {
             return res.status(422).send({ message: "Couldn't find the budget" });
         }
