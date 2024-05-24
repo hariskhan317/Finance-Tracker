@@ -9,10 +9,6 @@ export const createBudget = async(req, res) => {
             return res.status(422).send("Can't find the User");
         }
 
-        if (res.locals.jwtData.id !== user._id.toString()) {
-            return res.status(422).send("Couldn't match");
-        }
-
         const { budgetName, budgetAmount, expenseAmount, color } = req.body; 
 
         user.budget.push({ budgetName, budgetAmount, expenseAmount, color });
@@ -31,10 +27,6 @@ export const createExpense = async(req, res) => {
         
         if (!user) {
             return res.status(422).send("Can't find the User");
-        }
-
-        if (res.locals.jwtData.id !== user._id.toString()) {
-            return res.status(422).send("Couldn't match");
         }
 
         const { expenseName, budgetName, expenseAmount, date, color } = req.body;
@@ -57,9 +49,6 @@ export const getBudget = async (req, res) => {
             return res.status(422).send("Can't find the User");
         }
 
-        if (res.locals.jwtData.id !== user._id.toString()) {
-            return res.status(422).send("Couldn't match");
-        }
         const { expense, budget } = user;
 
         // Create a map to store the total expenses for each budget
@@ -96,9 +85,9 @@ export const getExpense = async(req, res) => {
             return res.status(422).send("Can't find the User");
         }
 
-        if (res.locals.jwtData.id !== user._id.toString()) {
-            return res.status(422).send("Couldn't match");
-        } 
+        // if (res.locals.jwtData.id !== user._id.toString()) {
+        //     return res.status(422).send("Couldn't match");
+        // } 
         return res.status(200).send(user.expense)
     } catch (error) {
         return res.status(400).send({message: "failed", cause: error.message})
@@ -111,10 +100,6 @@ export const deleteExpense = async (req, res) => {
         
         if (!user) {
             return res.status(422).send("Can't find the User");
-        }
-
-        if (res.locals.jwtData.id !== user._id.toString()) {
-            return res.status(422).send("Couldn't match");
         }
 
         const { expense } = user; 
@@ -145,10 +130,6 @@ export const deleteBudget = async (req, res) => {
         
         if (!user) {
             return res.status(422).send("Can't find the User");
-        }
-
-        if (res.locals.jwtData.id !== user._id.toString()) {
-            return res.status(422).send("Couldn't match");
         }
 
         const { budget, expense } = user; 
