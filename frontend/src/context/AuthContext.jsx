@@ -21,7 +21,9 @@ export const AuthProvider = ({ children }) => {
     const signup = async(name, email, password) => {
         try {
             const data = await userApiSignup(name, email, password);
-            setIsLogin(true)
+            if (data.status === 200) {
+                setIsLogin(true)
+              } 
             return data;
         } catch (error) {
             console.log(error)
