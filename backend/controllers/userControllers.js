@@ -46,7 +46,7 @@ export const userSignup = async (req, res) => {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
             sameSite: 'None',
-        }).status(200).send({ status: 200, message: "Successfull SignUp!", user });
+        }).status(200).send({ status: 200, message: "Successfull SignUp!", name: user.name, email: user.email });
     } catch (error) {
         return res.status(500).send({    message: 'Internal Server Error', cause:error.message });
     }
