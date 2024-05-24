@@ -30,7 +30,7 @@ const BudgetList = ({ budget }) => {
     <div className='relative animate-card rounded-lg p-3 shadow-lg transition-all delay-0 ease-in-out'>
       <div className={isComplete ? 'isCompleteCover' : 'coverBg'}></div>
       <button onClick={() => handleDelete(budget._id)} className='delete-btn absolute w-full mt-10'>
-        <MdDeleteForever className='mx-auto text-center' color={budget.color} size={50} />
+        <MdDeleteForever className='mx-auto text-center text-white' size={50} />
       </button>
       <div className={`p-5 h-full w-full border-2 border-dashed rounded-lg`} style={{ borderColor: `#${budget.color}` }}>
         <div className='flex justify-between'>

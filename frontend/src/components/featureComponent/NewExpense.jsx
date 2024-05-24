@@ -1,7 +1,9 @@
 import React from 'react' 
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
+import { MdOutlineAttachMoney } from "react-icons/md";
 import { Formik, Field, Form, ErrorMessage } from 'formik';
+import { BiCalculator } from "react-icons/bi";
 import * as Yup from 'yup';
 
 const NewExpense = ({ finance }) => { 
@@ -73,7 +75,10 @@ const NewExpense = ({ finance }) => {
                             </div>
                         </div>
                         <div className='flex justify-start mt-5'>
-                            <button type="submit" className='py-2 w-40 rounded font-medium bg-black text-white'>Add Expense</button>
+                            <button type="submit" className='flex justify-center gap-2 py-2 px-4 w-auto rounded font-medium bg-black text-white'>
+                                <MdOutlineAttachMoney className='mt-0.5 text-lg' />
+                                Add Expense
+                            </button>
                         </div>
                     </Form>
                 </Formik> 
