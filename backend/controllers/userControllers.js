@@ -41,9 +41,14 @@ export const userSignup = async (req, res) => {
         const expiryDate = new Date(Date.now() + 36000000); // 1 day
         const token = createToken(user._id, user.email); 
         
-        return res.cookie('auth_token', token, { expires: expiryDate, httpOnly: true }).status(200).send({ status: 200, message: "Successfull SignUp!", user });
+        return res.cookie('auth_token', token, {
+            expires: expiryDate,
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'None',
+        }).status(200).send({ status: 200, message: "Successfull SignUp!", user });
     } catch (error) {
-        return res.status(500).send({ message: 'Internal Server Error', cause:error.message });
+        return res.status(500).send({    message: 'Internal Server Error', cause:error.message });
     }
 }
 
@@ -63,7 +68,12 @@ export const userLogin = async (req, res) => {
         const expiryDate = new Date(Date.now() + 36000000); // 1 day
         const token = createToken(user._id, user.email); 
 
-        return res.cookie('auth_token', token, { expires: expiryDate, httpOnly: true }).status(200).send({ status: 200, message: "Successfull Login!", name: user.name, email: user.email });
+        return res.cookie('auth_token', token, {
+            expires: expiryDate,
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'None',
+        }).status(200).send({ status: 200, message: "Successfull Login!", name: user.name, email: user.email });
     } catch (error) {
         return res.status(500).send({ message: 'Internal Server Error', cause:error.message });
     }
