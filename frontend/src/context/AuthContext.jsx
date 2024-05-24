@@ -25,9 +25,6 @@ export const AuthProvider = ({ children }) => {
             setIsUser({ name: data.name, email: data.email });
         }
     }
-
-    handleAuthStatus();
-
   
     const signup = async(name, email, password) => {
         try {
