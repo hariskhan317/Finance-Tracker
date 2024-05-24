@@ -9,7 +9,7 @@ const app = express();
 
 config();
 app.use(cors({
-    origin: ["https://finance-tracker-three-vert.vercel.app"],
+    origin: ["https://finance-tracker-git-master-hariskhan317s-projects.vercel.app"],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     credentials: true
 }));
