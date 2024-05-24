@@ -18,12 +18,8 @@ const Signup = () => {
 })
   const navigate = useNavigate();
   const auth = useAuth();
-  const handleSubmit = async(event) => {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    const name = formData.get('name');
-    const email = formData.get('email');
-    const password = formData.get('password');
+  const handleSubmit = async(values) => {
+    const {name, email, password} = values
     try {
       const data = await auth.signup(name, email, password);
       if (data.status === 200) {
