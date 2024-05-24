@@ -6,8 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 const Table = () => {
     const finance = useFinance();
 
-    const handleDelete = async (expenseId) => { 
-        console.log(expenseId)
+    const handleDelete = async (expenseId) => {  
         try {
             const data = await finance.deleteExpense(expenseId);   
             if (data.status === 200) {

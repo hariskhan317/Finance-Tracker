@@ -8,14 +8,12 @@ const Header = () => {
     auth.logout();  
   }
   return (
-    <div className='h-14 w-full flex justify-between py-3 px-6'>
+    <div className='h-14 w-full flex justify-between py-3 px-7'>
         <div>
             <h1 className='text-black font-semibold text-3xl tracking-wider '>SpendeX</h1>
       </div>
       {auth.islogin && (
-        <div className='text-black font-medium gap-10 flex'> 
-          <button onClick={handleLogout}>Logout</button>
-        </div>  
+        <button className='px-5 h-10 py-1.5 text-base rounded bg-black text-white font-medium' onClick={handleLogout}>Logout</button>
       )}
     </div>
   )
