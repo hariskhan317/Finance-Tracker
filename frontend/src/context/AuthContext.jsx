@@ -7,23 +7,36 @@ export const AuthProvider = ({ children }) => {
     const [ islogin, setIsLogin ] = useState(false); 
     const [ isUser, setIsUser ] = useState({});
     
-    useEffect(() => {
-        const handleAuthStatus = async() => {
-            const data = await checkAuthStatus(); 
-            if (data) {
-                setIsLogin(true); 
-                setIsUser({ name: data.name, email: data.email });
-            }
+    // useEffect(() => {
+    //     const handleAuthStatus = async() => {
+    //         const data = await checkAuthStatus(); 
+    //         if (data) {
+    //             setIsLogin(true); 
+    //             setIsUser({ name: data.name, email: data.email });
+    //         }
+    //     }
+    //     handleAuthStatus();
+    // },[islogin])
+
+    const handleAuthStatus = async() => {
+        const data = await checkAuthStatus(); 
+        if (data) {
+            setIsLogin(true); 
+            setIsUser({ name: data.name, email: data.email });
         }
-        handleAuthStatus();
-    },[islogin])
+    }
+
+    handleAuthStatus();
+
   
     const signup = async(name, email, password) => {
         try {
             const data = await userApiSignup(name, email, password);
             if (data.status === 200) { 
                 setIsLogin(true)
+                handleAuthStatus();
               } 
+    
             return data;
         } catch (error) {
             console.log(error)
@@ -33,7 +46,10 @@ export const AuthProvider = ({ children }) => {
     const login = async(email, password) => {
         try {
             const data = await userApiLogin(email, password);
-            setIsLogin(true)
+            if (data.status === 200) { 
+                setIsLogin(true)
+                handleAuthStatus();
+              } 
             return data;
         } catch (error) {
             console.log(error)
