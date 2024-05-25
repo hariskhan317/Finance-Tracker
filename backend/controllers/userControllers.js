@@ -44,8 +44,8 @@ export const userSignup = async (req, res) => {
         return res.cookie('auth_token', token, {
             expires: expiryDate,
             httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-            sameSite: 'None',
+            // secure: process.env.NODE_ENV === 'production',
+            // sameSite: 'None',
         }).status(200).send({ status: 200, message: "Successfull SignUp!", name: user.name, email: user.email });
     } catch (error) {
         return res.status(500).send({    message: 'Internal Server Error', cause:error.message });
@@ -71,8 +71,8 @@ export const userLogin = async (req, res) => {
         return res.cookie('auth_token', token, {
             expires: expiryDate,
             httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-            sameSite: 'None',
+            // secure: process.env.NODE_ENV === 'production',
+            // sameSite: 'None',
         }).status(200).send({ status: 200, message: "Successfull Login!", name: user.name, email: user.email });
     } catch (error) {
         return res.status(500).send({ message: 'Internal Server Error', cause:error.message });
