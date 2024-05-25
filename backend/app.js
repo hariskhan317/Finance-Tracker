@@ -13,7 +13,7 @@ config();
 // }));
 
 app.use(cors({
-    origin: ["http://localhost:5173"],
+    origin: ["https://finance-tracker-mocha.vercel.app"],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     credentials: true
 }));
