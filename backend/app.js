@@ -8,8 +8,20 @@ const app = express();
 
 
 config();
+// app.use(cors({
+//     origin: ["https://finance-tracker-plum.vercel.app"],
+//     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+//     credentials: true
+// }));
+
+// app.use(cors({
+//     origin: ["http://localhost:5173"],
+//     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+//     credentials: true
+// }));
+
 app.use(cors({
-    origin: ["https://finance-tracker-plum.vercel.app"],
+    origin: ["https://incredible-lamington-473e1e.netlify.app"],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     credentials: true
 }));
