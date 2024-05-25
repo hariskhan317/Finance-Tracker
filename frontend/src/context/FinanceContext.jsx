@@ -1,11 +1,11 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { addBudgetApi, getBudgetApi, addExpenseApi, getExpenseApi, deleteExpenseApi, deleteBudgetApi } from '../helper/apiCommunicator';
-// import { useAuth } from "./AuthContext";
+import { useAuth } from "./AuthContext";
  
 const FinanceContext = createContext(null);
 
 export const FinanceProvider = ({ children }) => {
-    //const auth = useAuth();
+    const auth = useAuth();
     const [budgets, setBudgets] = useState([]);
     const [expenses, setExpenses] = useState([]);
     const [refresh, setRefresh] = useState(false);
@@ -51,6 +51,11 @@ export const FinanceProvider = ({ children }) => {
 
         getBudgetList();
         getExpenseList();
+
+        if (auth.islogin) {
+            getBudgetList();
+            getExpenseList();
+        }
 
     }, [refresh])
 
