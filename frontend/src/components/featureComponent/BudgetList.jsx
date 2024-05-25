@@ -28,6 +28,7 @@ const BudgetList = ({ budget }) => {
 
   return (
     <div className='relative animate-card rounded-lg p-3 shadow-lg transition-all delay-0 ease-in-out'>
+      {console.log({budget})}
       <div className={isComplete ? 'isCompleteCover' : 'coverBg'}></div>
       <button onClick={() => handleDelete(budget._id)} className='delete-btn absolute w-full mt-10'>
         <MdDeleteForever className='mx-auto text-center text-white' size={50} />
