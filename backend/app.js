@@ -6,6 +6,7 @@ import cors from 'cors'
 const app = express();
 
 config();
+
 // app.use(cors({
 //     origin: ["http://localhost:5173"],
 //     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
@@ -13,6 +14,13 @@ config();
 // }));
 
 app.use(cors({
+    origin: ["https://finance-tracker-mocha.vercel.app"],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    credentials: true
+}));
+
+// Ensure OPTIONS requests are handled correctly
+app.options('*', cors({
     origin: ["https://finance-tracker-mocha.vercel.app"],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     credentials: true
