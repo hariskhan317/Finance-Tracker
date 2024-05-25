@@ -14,6 +14,7 @@ export const getUsers = async(req, res) => {
 export const userAuthStatus = async(req, res) => {
     try {
         const user = await User.findById(res.locals.jwtData.id);
+    
         if (!user) {
             return res.status(400).send({ message: 'Cant find user' });
         }
@@ -30,7 +31,8 @@ export const userSignup = async (req, res) => {
     try {
         const { name, email, password } = req.body;
         const hashPassword = await brcypt.hash(password, 10)
-        const existingUser = await User.findOne({ email });
+        const existingUser = await User.findOne({ email }); console.log('working');
+
         if (existingUser) {
             return res.status(400).send({ message: 'Already Register' });
         }
