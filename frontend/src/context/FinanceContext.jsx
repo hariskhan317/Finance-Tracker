@@ -54,7 +54,7 @@ export const FinanceProvider = ({ children }) => {
             getExpenseList();
         }
 
-    }, [refresh])
+    }, [])
 
     const deleteExpense = async(expenseId) => { 
         try {
