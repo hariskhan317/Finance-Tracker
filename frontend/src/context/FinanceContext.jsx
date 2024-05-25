@@ -52,11 +52,6 @@ export const FinanceProvider = ({ children }) => {
         getBudgetList();
         getExpenseList();
 
-        if (auth.islogin) {
-            getBudgetList();
-            getExpenseList();
-        }
-
     }, [refresh])
 
     const deleteExpense = async(expenseId) => { 

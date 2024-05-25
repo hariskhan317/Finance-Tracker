@@ -2,16 +2,17 @@ import { Routes, Route } from 'react-router-dom';
 import Auth from './pages/auth.jsx';
 import FinanceTracker from './pages/financetracker.jsx';
 import Header from './components/shared/Header.jsx' 
-import PrivateRoutes from './utils/PrivateRoutes.jsx';
+// import PrivateRoutes from './utils/PrivateRoutes.jsx';
 
 function App() {   
   return (
     <>
       <Header />
       <Routes> 
-        <Route element={<PrivateRoutes />}>
+        {/* <Route element={<PrivateRoutes />}>
           <Route element={<FinanceTracker />} path="/financetracker"/>
-        </Route>
+        </Route> */}
+        <Route path="/financetracker" element={<FinanceTracker />} />
         <Route path="/" element={<Auth />} />
       </Routes>
     </>

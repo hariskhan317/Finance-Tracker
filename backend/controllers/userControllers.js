@@ -37,7 +37,7 @@ export const userSignup = async (req, res) => {
         const user = new User({ name, email, password: hashPassword })
         await user.save();
 
-        res.clearCookie('auth_token') 
+        res.clearCookie('auth_token');
         const expiryDate = new Date(Date.now() + 36000000); // 1 day
         const token = createToken(user._id, user.email); 
         
