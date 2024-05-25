@@ -15,7 +15,9 @@ export const AuthProvider = ({ children }) => {
                 setIsUser({ name: data.name, email: data.email });
             }
         }
-        handleAuthStatus();
+        if (islogin) {
+            handleAuthStatus();   
+        }
     },[islogin])
   
     const signup = async(name, email, password) => {
@@ -46,11 +48,19 @@ export const AuthProvider = ({ children }) => {
     }
 
     const logout = async() => {
-        const data = await userLogout(); 
-        setIsLogin(false);
-        setIsUser(null);
-        window.location.href = '/';
-        return data;
+        try {
+            const data = await userLogout(); 
+            if (data.status === 200) { 
+                setIsLogin(true)
+                setIsLogin(false);
+                setIsUser(null); 
+                window.location.href = '/';
+                return data;
+            } 
+        }
+        catch (error) {
+            console.log(error)
+        }
     }
     
     const authValue = {

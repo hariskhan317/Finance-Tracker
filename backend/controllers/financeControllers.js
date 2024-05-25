@@ -57,7 +57,7 @@ export const getBudget = async (req, res) => {
         if (res.locals.jwtData.id !== user._id.toString()) {
             return res.status(422).send("Couldn't match");
         }
-
+        
         const { expense, budget } = user;
 
         // Create a map to store the total expenses for each budget
