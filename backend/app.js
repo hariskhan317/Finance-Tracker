@@ -7,17 +7,17 @@ const app = express();
 
 config();
 
-// app.use(cors({
-//     origin: ["http://localhost:5173"],
-//     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-//     credentials: true
-// }));
-
 app.use(cors({
-    origin: ["https://finance-tracker-frontend-mu.vercel.app"],
+    origin: ["http://localhost:5173"],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     credentials: true
 }));
+
+// app.use(cors({
+//     origin: ["https://finance-tracker-frontend-mu.vercel.app"],
+//     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+//     credentials: true
+// }));
 
 
 app.use(cookieParser(process.env.COOKIE_SECRET));
