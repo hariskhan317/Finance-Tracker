@@ -42,6 +42,7 @@ export const FinanceProvider = ({ children }) => {
     const addExpense = async(expenseName, budgetName, expenseAmount, date, color) => { 
         try {
             const res = await addExpenseApi(expenseName, budgetName, expenseAmount, date, color);
+            getBudgetList();
             getExpenseList();
             return res;
         } catch (error) {
