@@ -14,7 +14,7 @@ config();
 // }));
 
 app.use(cors({
-    origin: ["https://finance-tracker-mocha.vercel.app"],
+    origin: ["https://finance-tracker-gamma-liart.vercel.app"],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     credentials: true
 }));
