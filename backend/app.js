@@ -14,7 +14,7 @@ config();
 // }));
 
 app.use(cors({
-    origin: ["https://finance-tracker-gamma-liart.vercel.app"],
+    origin: ["https://spendex.netlify.app"],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     credentials: true
 }));
