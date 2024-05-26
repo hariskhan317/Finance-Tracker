@@ -8,10 +8,10 @@ import { BrowserRouter } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext.jsx';
 import { FinanceProvider } from './context/FinanceContext.jsx';
 
-// axios.defaults.baseURL = "https://finance-tracker-backend-gamma.vercel.app";
+axios.defaults.baseURL = "https://finance-tracker-backend-gamma.vercel.app";
+axios.defaults.withCredentials = true;
+// axios.defaults.baseURL = "http://localhost:8000/api/v1";
 // axios.defaults.withCredentials = true
-axios.defaults.baseURL = "http://localhost:8000/api/v1";
-axios.defaults.withCredentials = true
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <AuthProvider>
