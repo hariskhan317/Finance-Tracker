@@ -12,8 +12,8 @@ function App() {
         {/* <Route element={<PrivateRoutes />}>
           <Route element={<FinanceTracker />} path="/financetracker"/>
         </Route> */}
-        <Route path="/financetracker" element={<FinanceTracker />} />
         <Route path="/" element={<Auth />} />
+        <Route path="/financetracker" element={<FinanceTracker />} />
       </Routes>
     </>
   )

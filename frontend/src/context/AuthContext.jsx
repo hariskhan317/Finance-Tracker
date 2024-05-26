@@ -5,7 +5,8 @@ const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
     const [ islogin, setIsLogin ] = useState(false); 
-    const [ isUser, setIsUser ] = useState({});
+    const [isUser, setIsUser] = useState({});
+    console.log({ isUser });
     
     useEffect(() => {
         const handleAuthStatus = async() => {
@@ -13,22 +14,18 @@ export const AuthProvider = ({ children }) => {
             if (data) {
                 setIsLogin(true); 
                 setIsUser({ name: data.name, email: data.email });
-            }
+            } 
         }
-        if (islogin) {
-            handleAuthStatus();   
-        }
+        handleAuthStatus();  
     },[islogin])
   
     const signup = async(name, email, password) => {
         try {
-            const data = await userApiSignup(name, email, password);
+            const data = await userApiSignup(name, email, password); 
             if (data.status === 200) { 
-                setIsLogin(true)
-                // handleAuthStatus();
+                setIsLogin(true) 
+                return data;
               } 
-    
-            return data;
         } catch (error) {
             console.log(error)
         } 
@@ -38,10 +35,9 @@ export const AuthProvider = ({ children }) => {
         try {
             const data = await userApiLogin(email, password);
             if (data.status === 200) { 
-                setIsLogin(true)
-                // handleAuthStatus();
+                setIsLogin(true) 
+                return data;
               } 
-            return data;
         } catch (error) {
             console.log(error)
         } 
@@ -50,8 +46,7 @@ export const AuthProvider = ({ children }) => {
     const logout = async() => {
         try {
             const data = await userLogout(); 
-            if (data.status === 200) { 
-                setIsLogin(true)
+            if (data.status === 200) {  
                 setIsLogin(false);
                 setIsUser(null); 
                 window.location.href = '/';

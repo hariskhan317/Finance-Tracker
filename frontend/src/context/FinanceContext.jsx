@@ -1,14 +1,13 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { addBudgetApi, getBudgetApi, addExpenseApi, getExpenseApi, deleteExpenseApi, deleteBudgetApi } from '../helper/apiCommunicator';
-import { useAuth } from "./AuthContext";
+// import { useAuth } from "./AuthContext";
  
 const FinanceContext = createContext(null);
 
 export const FinanceProvider = ({ children }) => {
-    const auth = useAuth();
+    //const auth = useAuth();
     const [budgets, setBudgets] = useState([]);
     const [expenses, setExpenses] = useState([]);
-    const [refresh, setRefresh] = useState(false);
 
     const addBudget = async(budgetName, budgetAmount, color) => { 
         try {
@@ -52,7 +51,7 @@ export const FinanceProvider = ({ children }) => {
         getBudgetList();
         getExpenseList();
 
-    }, [refresh])
+    })
 
     const deleteExpense = async(expenseId) => { 
         try {
@@ -72,15 +71,10 @@ export const FinanceProvider = ({ children }) => {
         }
     }
 
-    const refreshList = () => {
-        setRefresh(prev => !prev); 
-    }
-
     const financeValue = {
         budgets,
         expenses,
         addBudget,
-        refreshList,
         addExpense,
         deleteExpense, 
         deleteBudget,

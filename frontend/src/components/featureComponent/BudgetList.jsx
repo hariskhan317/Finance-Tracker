@@ -16,8 +16,7 @@ const BudgetList = ({ budget }) => {
   const handleDelete = async(budgetId) => {
     try {
       const data = await finance.deleteBudget(budgetId);   
-      if (data.status === 200) {
-          finance.refreshList();
+      if (data.status === 200) { 
           return toast.success('Successfully Deleted!');
         } 
     } catch (error) {
