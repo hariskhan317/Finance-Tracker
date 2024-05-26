@@ -19,12 +19,6 @@ app.use(cors({
     credentials: true
 }));
 
-// Ensure OPTIONS requests are handled correctly
-app.options('*', cors({
-    origin: ["https://finance-tracker-mocha.vercel.app"],
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    credentials: true
-}));
 
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(express.json());
