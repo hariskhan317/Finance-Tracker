@@ -19,7 +19,7 @@ const Table = () => {
     
     return (
         <>
-         {finance.expenses.length > 0 ? (
+         {finance?.expenses?.length > 0 ? (
             <table className="table-auto w-full text-left">
                 <thead>
                     <tr>

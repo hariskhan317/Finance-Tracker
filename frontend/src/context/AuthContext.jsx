@@ -6,7 +6,6 @@ const AuthContext = createContext(null);
 export const AuthProvider = ({ children }) => {
     const [ islogin, setIsLogin ] = useState(false); 
     const [isUser, setIsUser] = useState({});
-    console.log({ isUser });
     
     useEffect(() => {
         const handleAuthStatus = async() => {
