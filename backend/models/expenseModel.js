@@ -3,9 +3,7 @@ import mongoose from "mongoose";
 export const expenseSchema = new mongoose.Schema({
     expenseName: {
         type: String,
-        required: true,
-        // unique: true,
-        // sparse: true
+        required: true, 
     },
     budgetName: {
         type: String,

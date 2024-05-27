@@ -27,8 +27,7 @@ export const AuthProvider = ({ children }) => {
             const data = await userApiSignup(name, email, password);
             if (data.status === 200) {
                 setIsLogin(true);
-                setIsUser({ name: data.name, email: data.email });
-                // handleAuthStatus();
+                setIsUser({ name: data.name, email: data.email }); 
                 return data;
             }
         } catch (error) {
@@ -41,8 +40,7 @@ export const AuthProvider = ({ children }) => {
             const data = await userApiLogin(email, password);
             if (data.status === 200) {
                 setIsLogin(true);
-                setIsUser({ name: data.name, email: data.email });
-                // handleAuthStatus();
+                setIsUser({ name: data.name, email: data.email }); 
                 return data;
             }
         } catch (error) {
