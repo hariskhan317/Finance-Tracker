@@ -10,7 +10,7 @@ export const AuthProvider = ({ children }) => {
     const handleAuthStatus = useCallback(async () => {
         try {
             const data = await checkAuthStatus();
-            if (data && data.name && data.email) {
+            if (data) {
                 setIsLogin(true);
                 setIsUser({ name: data.name, email: data.email });
             } else {
@@ -27,7 +27,8 @@ export const AuthProvider = ({ children }) => {
             const data = await userApiSignup(name, email, password);
             if (data.status === 200) {
                 setIsLogin(true);
-                handleAuthStatus();
+                setIsUser({ name: data.name, email: data.email });
+                // handleAuthStatus();
                 return data;
             }
         } catch (error) {
@@ -40,7 +41,8 @@ export const AuthProvider = ({ children }) => {
             const data = await userApiLogin(email, password);
             if (data.status === 200) {
                 setIsLogin(true);
-                handleAuthStatus();
+                setIsUser({ name: data.name, email: data.email });
+                // handleAuthStatus();
                 return data;
             }
         } catch (error) {
