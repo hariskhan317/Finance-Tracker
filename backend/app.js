@@ -7,12 +7,13 @@ const app = express();
 
 config();
 
+
+
 app.use(cors({
-    origin: ["http://localhost:5173"],
+    origin: ["https://finance-tracker-frontend-nu.vercel.app"],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     credentials: true
 }));
-
 
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(express.json());
