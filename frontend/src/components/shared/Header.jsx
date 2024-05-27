@@ -10,7 +10,7 @@ const Header = () => {
         <div>
             <h1 className='text-black font-semibold text-3xl tracking-wider '>SpendeX</h1>
       </div>
-      {auth.islogin && (
+      {auth.islogin && auth.isUser && (
         <button className='px-5 h-10 py-1.5 text-base rounded bg-black text-white font-medium' onClick={auth.logout}>Logout</button>
       )}
     </div>
