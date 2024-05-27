@@ -55,7 +55,7 @@ export const AuthProvider = ({ children }) => {
             if (data.status === 200) { 
                 setIsLogin(false);
                 setIsUser(null);
-                //return window.location.href = '/';
+                return window.location.href = '/';
             }
         } catch (error) {
             console.error("Error during logout:", error);
