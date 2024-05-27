@@ -39,17 +39,21 @@ export const userSignup = async (req, res) => {
         const user = new User({ name, email, password: hashPassword })
         await user.save();
 
-        res.clearCookie('auth_token',
-        { httpOnly: true, secure: true, sameSite: 'None' }
-        );
+        res.clearCookie('auth_token',{
+            httpOnly: true,
+            secure: true,
+            sameSite: 'None', // or 'Lax' if your use case allows
+            domain: '.finance-tracker-frontend-mu.vercel.app',
+            path: '/'
+        });
         const expiryDate = new Date(Date.now() + 36000000); // 1 day
         const token = createToken(user._id, user.email); 
         
         return res.cookie('auth_token', token, {
             expires: expiryDate,
             httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-            sameSite: 'None',
+            // secure: process.env.NODE_ENV === 'production',
+            // sameSite: 'None',
         }).status(200).send({ status: 200, message: "Successfull SignUp!", name: user.name, email: user.email });
     } catch (error) {
         return res.status(500).send({    message: 'Internal Server Error', cause:error.message });
@@ -68,15 +72,21 @@ export const userLogin = async (req, res) => {
             return res.status(422).send({ message: 'Password is not same' });
         } 
 
-        res.clearCookie('auth_token',        { httpOnly: true, secure: true, sameSite: 'None' }) 
+        res.clearCookie('auth_token',{
+            httpOnly: true,
+            secure: true,
+            sameSite: 'None', // or 'Lax' if your use case allows
+            domain: '.finance-tracker-frontend-mu.vercel.app',
+            path: '/'
+        }) 
         const expiryDate = new Date(Date.now() + 36000000); // 1 day
         const token = createToken(user._id, user.email); 
 
         return res.cookie('auth_token', token, {
             expires: expiryDate,
             httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-            sameSite: 'None',
+            // secure: process.env.NODE_ENV === 'production',
+            // sameSite: 'None',
         }).status(200).send({ status: 200, message: "Successfull Login!", name: user.name, email: user.email });
     } catch (error) {
         return res.status(500).send({ message: 'Internal Server Error', cause:error.message });
@@ -92,9 +102,13 @@ export const userLogout = async (req, res) => {
         if (user._id.toString() !== res.locals.jwtData.id) {
             return res.status(400).send({ message: 'Not same' });
         }
-        return res.clearCookie('auth_token',
-            { httpOnly: true, secure: true, sameSite: 'None' }
-            ).status(200).json({ status: 200 });
+        return res.clearCookie('auth_token',{
+            httpOnly: true,
+            secure: true,
+            sameSite: 'None', // or 'Lax' if your use case allows
+            domain: '.finance-tracker-frontend-mu.vercel.app',
+            path: '/'
+        } ).status(200).json({ status: 200 });
     } catch (error) {
         return res.status(500).send({ message: 'Internal Server Error', cause:error.message });
     }
