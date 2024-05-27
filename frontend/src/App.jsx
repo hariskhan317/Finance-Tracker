@@ -17,7 +17,7 @@ function App() {
         </Route> */}
         <Route path="/" element={<Auth />} />
         {auth.islogin && <Route path="/financetracker" element={<FinanceTracker />} />}
-        <Route path="*" element={<PageNotFound />} /> 
+
       </Routes>
     </>
   )
