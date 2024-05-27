@@ -12,14 +12,14 @@ function App() {
     <>
       <Header />
       <Routes> 
-        {/* <Route path="/financetracker" element={
+        <Route path="/financetracker" element={
           <PrivateRoutes >
             <FinanceTracker />
           </PrivateRoutes>}
-        />   */}
+        />  
  
         <Route path="/" element={<Auth />} />
-        <Route path="/financetracker" element={<FinanceTracker />} />
+        {/* <Route path="/financetracker" element={<FinanceTracker />} /> */}
         {/* {auth.isUser && auth.islogin && <Route path="/financetracker" element={<FinanceTracker />} />} */}
         {/* <Route path="*" element={<PageNotFound />} /> */}
       </Routes>
