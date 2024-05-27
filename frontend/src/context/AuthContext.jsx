@@ -1,4 +1,4 @@
-import React, { useContext, createContext, useState, useEffect, useCallback } from 'react'; 
+import React, { useContext, createContext, useState } from 'react'; 
 import { userApiSignup, userApiLogin, userLogout } from '../helper/apiCommunicator'
 
 const AuthContext = createContext(null);
@@ -58,9 +58,9 @@ export const AuthProvider = ({ children }) => {
         }
     }
 
-    useEffect(() => {
-        handleAuthStatus();
-    }, [])
+    // useEffect(() => {
+    //     handleAuthStatus();
+    // }, [])
 
     const authValue = {
         login,
