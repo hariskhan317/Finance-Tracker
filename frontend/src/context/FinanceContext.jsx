@@ -1,94 +1,97 @@
-import { createContext, useContext, useEffect, useState } from "react";
-import { addBudgetApi, getBudgetApi, addExpenseApi, getExpenseApi, deleteExpenseApi, deleteBudgetApi } from '../helper/apiCommunicator';
+import { createContext, useContext, useEffect, useState, useCallback } from "react";
+import { 
+    addBudgetApi, 
+    getBudgetApi, 
+    addExpenseApi, 
+    getExpenseApi, 
+    deleteExpenseApi, 
+    deleteBudgetApi 
+} from '../helper/apiCommunicator';
 import { useAuth } from "./AuthContext";
- 
+
 const FinanceContext = createContext(null);
 
 export const FinanceProvider = ({ children }) => {
     const auth = useAuth();
-    console.log('userrr', auth.isUser);
     const [budgets, setBudgets] = useState([]);
     const [expenses, setExpenses] = useState([]);
 
-    const getBudgetList = async () => {
+    const fetchBudgets = useCallback(async () => {
         try {
-            const data = await getBudgetApi(); 
-            setBudgets(data); 
-            return data;
+            const data = await getBudgetApi();
+            setBudgets(data);
         } catch (error) {
-            console.log(error);
+            console.error("Error fetching budgets:", error);
         }
-    }
+    }, []);
 
-    const getExpenseList = async () => {
+    const fetchExpenses = useCallback(async () => {
         try {
-            const data = await getExpenseApi(); 
-            setExpenses(data); 
-            return data;
+            const data = await getExpenseApi();
+            setExpenses(data);
         } catch (error) {
-            console.log(error);
+            console.error("Error fetching expenses:", error);
         }
-    }
+    }, []);
 
-    const addBudget = async(budgetName, budgetAmount, color) => { 
+    const addBudget = useCallback(async (budgetName, budgetAmount, color) => {
         try {
-            const res = await addBudgetApi(budgetName, budgetAmount, color);
-            getBudgetList();
-            return res;
+            await addBudgetApi(budgetName, budgetAmount, color);
+            fetchBudgets();
         } catch (error) {
-            console.log(error);
+            console.error("Error adding budget:", error);
         }
-    }
+    }, [fetchBudgets]);
 
-    const addExpense = async(expenseName, budgetName, expenseAmount, date, color) => { 
+    const addExpense = useCallback(async (expenseName, budgetName, expenseAmount, date, color) => {
         try {
-            const res = await addExpenseApi(expenseName, budgetName, expenseAmount, date, color);
-            getBudgetList();
-            getExpenseList();
-            return res;
+            await addExpenseApi(expenseName, budgetName, expenseAmount, date, color);
+            fetchBudgets();
+            fetchExpenses();
         } catch (error) {
-            console.log(error);
+            console.error("Error adding expense:", error);
         }
-    }
+    }, [fetchBudgets, fetchExpenses]);
 
-    const deleteExpense = async(expenseId) => { 
+    const deleteExpense = useCallback(async (expenseId) => {
         try {
-            const res = await deleteExpenseApi(expenseId);
-            getExpenseList();
-            return res; 
+            await deleteExpenseApi(expenseId);
+            fetchExpenses();
         } catch (error) {
-            console.log(error);
+            console.error("Error deleting expense:", error);
         }
-    }
+    }, [fetchExpenses]);
 
-    const deleteBudget = async (budgetId) => {
+    const deleteBudget = useCallback(async (budgetId) => {
         try {
-            const res = await deleteBudgetApi(budgetId);
-            getBudgetList();
-            return res;
+            await deleteBudgetApi(budgetId);
+            fetchBudgets();
         } catch (error) {
-            console.log(error);
+            console.error("Error deleting budget:", error);
         }
-    }
+    }, [fetchBudgets]);
 
-    useEffect(() => { 
-        getBudgetList();
-        getExpenseList();
-
-    },[auth.isUser])
-
-
+    useEffect(() => {
+        if (auth.isUser) {
+            fetchBudgets();
+            fetchExpenses();
+        }
+    }, [auth.isUser, fetchBudgets, fetchExpenses]);
 
     const financeValue = {
         budgets,
         expenses,
         addBudget,
         addExpense,
-        deleteExpense, 
+        deleteExpense,
         deleteBudget,
     };
 
-    return (<FinanceContext.Provider value={financeValue}>{children}</FinanceContext.Provider>)
-}
+    return (
+        <FinanceContext.Provider value={financeValue}>
+            {children}
+        </FinanceContext.Provider>
+    );
+};
 
-export const useFinance = () => useContext(FinanceContext)
+export const useFinance = () => useContext(FinanceContext);
