@@ -76,7 +76,7 @@ export const FinanceProvider = ({ children }) => {
             fetchBudgets();
             fetchExpenses();
         }
-    }, [auth.isUser, fetchBudgets, fetchExpenses]);
+    }, [fetchBudgets, fetchExpenses]);
 
     const financeValue = {
         budgets,
