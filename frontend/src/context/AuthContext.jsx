@@ -48,7 +48,7 @@ export const AuthProvider = ({ children }) => {
         }
     }, [handleAuthStatus]);
 
-    const logout = useCallback(async () => {
+    const logout = async () => {
         try {
             await userLogout();
             setIsLogin(false);
@@ -57,7 +57,7 @@ export const AuthProvider = ({ children }) => {
         } catch (error) {
             console.error("Error during logout:", error);
         }
-    }, []);
+    }
 
     useEffect(() => {
         handleAuthStatus();  
