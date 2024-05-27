@@ -1,16 +1,16 @@
-import React, { useContext, createContext, useState, useEffect, useCallback } from 'react';
-import { userApiSignup, userApiLogin, checkAuthStatus, userLogout } from '../helper/apiCommunicator';
+import React, { useContext, createContext, useState, useEffect, useCallback } from 'react'; 
+import { userApiSignup, userApiLogin, checkAuthStatus, userLogout } from '../helper/apiCommunicator'
 
 const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
-    const [isLogin, setIsLogin] = useState(false);
-    const [isUser, setIsUser] = useState(null);
-
+    const [ islogin, setIsLogin ] = useState(false); 
+    const [isUser, setIsUser] = useState({});
+    
     const handleAuthStatus = useCallback(async () => {
         try {
             const data = await checkAuthStatus();
-            if (data) {
+            if (data && data.name && data.email) {
                 setIsLogin(true);
                 setIsUser({ name: data.name, email: data.email });
             } else {
@@ -21,7 +21,7 @@ export const AuthProvider = ({ children }) => {
             console.error("Error checking auth status:", error);
         }
     }, []);
-
+  
     const signup = useCallback(async (name, email, password) => {
         try {
             const data = await userApiSignup(name, email, password);
@@ -60,22 +60,18 @@ export const AuthProvider = ({ children }) => {
     }, []);
 
     useEffect(() => {
-        handleAuthStatus();
-    }, [handleAuthStatus]);
-
+        handleAuthStatus();  
+    },[])
+    
     const authValue = {
         login,
         signup,
         logout,
-        isLogin,
-        isUser,
-    };
+        islogin,
+        isUser, 
+    }
 
-    return (
-        <AuthContext.Provider value={authValue}>
-            {children}
-        </AuthContext.Provider>
-    );
-};
-
+    return (<AuthContext.Provider value={authValue}>{children}</AuthContext.Provider>  )
+}
+ 
 export const useAuth = () => useContext(AuthContext);

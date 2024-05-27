@@ -31,7 +31,7 @@ export const userSignup = async (req, res) => {
     try {
         const { name, email, password } = req.body;
         const hashPassword = await brcypt.hash(password, 10)
-        const existingUser = await User.findOne({ email }); console.log('working');
+        const existingUser = await User.findOne({ email });
 
         if (existingUser) {
             return res.status(400).send({ message: 'Already Register' });

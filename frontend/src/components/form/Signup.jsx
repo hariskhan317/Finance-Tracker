@@ -15,8 +15,7 @@ const Signup = () => {
     const email = formData.get("email");
     const password = formData.get("password");  
     try {
-      const data = await auth.signup(name, email, password); 
-      console.log(data)
+      const data = await auth.signup(name, email, password);  
       if (data.status === 200) {
         toast.success('Sucessfull Signup');
         return navigate('/financetracker');

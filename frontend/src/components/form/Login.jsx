@@ -21,7 +21,7 @@ const login = () => {
             return toast.error('Login failed');
           } catch (error) {
             console.log(error);
-            toast.error('Signup failed');
+            return toast.error('Signup failed');
           }
       }
     return (

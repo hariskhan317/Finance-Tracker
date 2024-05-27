@@ -49,7 +49,6 @@ export const userLogout = async() => {
 export const addBudgetApi = async(budgetName, budgetAmount, color) => {
     try {
         const res = await axios.post('/financial-records/create-budget', { budgetName, budgetAmount, color });
-        console.log({res})
         return res;
     } catch (error) {
         console.log(error)
