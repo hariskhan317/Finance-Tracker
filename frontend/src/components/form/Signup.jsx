@@ -27,7 +27,7 @@ const Signup = () => {
   }
 
   useEffect(() => {
-    if (auth?.user) {
+    if (auth?.isUser) {
       return navigate("/financetracker");
     }
   }, [auth]);

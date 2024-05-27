@@ -24,7 +24,8 @@ const login = () => {
           }
     }
     useEffect(() => {
-        if (auth?.user) {
+        if (auth?.isUser) {
+            console.log(auth)
           return navigate("/financetracker");
         }
       }, [auth]);
