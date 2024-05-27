@@ -50,11 +50,12 @@ export const AuthProvider = ({ children }) => {
 
     const logout = async () => {
         try {
+            console.log('working')
             const data = await userLogout();
             if (data.status === 200) { 
                 setIsLogin(false);
                 setIsUser(null);
-                return window.location.href = '/';
+                //return window.location.href = '/';
             }
         } catch (error) {
             console.error("Error during logout:", error);
