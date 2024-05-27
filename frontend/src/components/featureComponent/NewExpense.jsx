@@ -16,6 +16,15 @@ const NewExpense = ({ finance }) => {
         .filter((item) => item.budgetName === budgetName)
             .map((item) => item.color);
         const color = activeColor[0];
+        const activeBudget = finance.budgets.find((item) => item.budgetName === budgetName);
+
+        if (!activeBudget) {
+            return toast.error('Budget not found');
+        }
+    
+        if (expenseAmount > activeBudget.budgetAmount) {
+            return toast.error("Expense can't be greater than budget");
+        }
    
         try {
         const data = await finance.addExpense(expenseName, budgetName, expenseAmount, date, color);
