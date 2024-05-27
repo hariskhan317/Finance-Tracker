@@ -14,13 +14,16 @@ export const AuthProvider = ({ children }) => {
             setIsUser({ name: data.name, email: data.email });
         } 
     }
+
+    useEffect(() => {
+        handleAuthStatus();  
+    },[])
   
     const signup = async(name, email, password) => {
         try {
             const data = await userApiSignup(name, email, password); 
             if (data.status === 200) { 
                 setIsLogin(true) 
-                handleAuthStatus();
                 return data;
               } 
         } catch (error) {
@@ -32,8 +35,7 @@ export const AuthProvider = ({ children }) => {
         try {
             const data = await userApiLogin(email, password);
             if (data.status === 200) { 
-                setIsLogin(true);
-                handleAuthStatus();
+                setIsLogin(true); 
                 return data;
               } 
         } catch (error) {
@@ -42,23 +44,11 @@ export const AuthProvider = ({ children }) => {
     }
 
     const logout = async() => {
-        try {
-            const data = await userLogout(); 
-            if (data.status === 200) {  
-                setIsLogin(false);
-                setIsUser(null); 
-                window.location.href = '/';
-                return data;
-            } 
-        }
-        catch (error) {
-            console.log(error)
-        }
+        await userLogout(); 
+        setIsLogin(false);
+        setIsUser(null); 
+        window.location.href = '/'; 
     }
-
-    useEffect(() => {
-        handleAuthStatus();  
-    })
     
     const authValue = {
         login,
