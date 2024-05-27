@@ -50,7 +50,7 @@ export const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         handleAuthStatus();  
-    },[]    )
+    },[])
     
     const authValue = {
         login,
