@@ -21,7 +21,7 @@ export const FinanceProvider = ({ children }) => {
             fetchBudgets();
             fetchExpenses();
         }
-    }, [auth.isUser, fetchBudgets, fetchExpenses]);
+    }, [fetchBudgets, fetchExpenses]);
 
     const fetchBudgets = useCallback(async () => {
         try {

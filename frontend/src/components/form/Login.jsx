@@ -15,15 +15,19 @@ const login = () => {
         try {
             const data = await auth.login(email, password);
             if (data.status === 200) {
-              toast.success('Sucessfull Login');
-              return navigate('/financetracker');
+                return toast.success('Sucessfull Login'); 
             }  
             return toast.error('Login failed');
           } catch (error) {
             console.log(error);
             return toast.error('Signup failed');
           }
-      }
+    }
+    useEffect(() => {
+        if (auth?.user) {
+          return navigate("/financetracker");
+        }
+      }, [auth]);
     return (
         <form onSubmit={handleSubmit} className="space-y-6 mt-10">
             {/* Email */}

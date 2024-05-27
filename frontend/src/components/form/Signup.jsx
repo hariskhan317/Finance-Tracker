@@ -17,8 +17,7 @@ const Signup = () => {
     try {
       const data = await auth.signup(name, email, password);  
       if (data.status === 200) {
-        toast.success('Sucessfull Signup');
-        return navigate('/financetracker');
+        return toast.success('Sucessfull Signup'); 
       } 
       return toast.error('Signup failed');
     } catch (error) {
@@ -26,6 +25,13 @@ const Signup = () => {
       toast.error('Signup failed');
     }
   }
+
+  useEffect(() => {
+    if (auth?.user) {
+      return navigate("/financetracker");
+    }
+  }, [auth]);
+
   return (
     <form onSubmit={handleSubmit} className="space-y-6 mt-10">
     {/* Name */}
