@@ -16,6 +16,13 @@ export const FinanceProvider = ({ children }) => {
     const [budgets, setBudgets] = useState([]);
     const [expenses, setExpenses] = useState([]);
 
+    useEffect(() => {
+        if (auth.isUser) {
+            fetchBudgets();
+            fetchExpenses();
+        }
+    }, [auth.isUser, fetchBudgets, fetchExpenses]);
+
     const fetchBudgets = useCallback(async () => {
         try {
             const data = await getBudgetApi();
@@ -70,13 +77,6 @@ export const FinanceProvider = ({ children }) => {
             console.error("Error deleting budget:", error);
         }
     }, [fetchBudgets]);
-
-    useEffect(() => {
-        if (auth.isUser) {
-            fetchBudgets();
-            fetchExpenses();
-        }
-    }, [fetchBudgets, fetchExpenses]);
 
     const financeValue = {
         budgets,
