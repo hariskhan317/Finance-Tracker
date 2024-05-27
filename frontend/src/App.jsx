@@ -19,7 +19,8 @@ function App() {
         />   */}
  
         <Route path="/" element={<Auth />} /> 
-        {auth.isUser && auth.islogin && <Route path="/financetracker" element={<FinanceTracker />} />} 
+        <Route path="/financetracker" element={<FinanceTracker />} />
+        {/* {auth.isUser && auth.islogin && <Route path="/financetracker" element={<FinanceTracker />} />}  */}
         {/* <Route path="*" element={<PageNotFound />} /> */}
       </Routes>
     </>
