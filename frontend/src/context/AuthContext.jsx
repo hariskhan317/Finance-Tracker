@@ -13,9 +13,7 @@ export const AuthProvider = ({ children }) => {
             if (data) {
                 setIsLogin(true);
                 setIsUser({ name: data.name, email: data.email });
-            } 
-            setIsLogin(false);
-            setIsUser(null);
+            }  
         } catch (error) {
             console.error("Error checking auth status:", error);
         }
@@ -48,13 +46,12 @@ export const AuthProvider = ({ children }) => {
     }, [handleAuthStatus]);
 
     const logout = async () => {
-        try {
-            console.log('working')
+        try { 
             const data = await userLogout();
             if (data.status === 200) { 
                 setIsLogin(false);
                 setIsUser(null);
-                return window.location.href = '/';
+                window.location.href = '/';
             }
         } catch (error) {
             console.error("Error during logout:", error);
