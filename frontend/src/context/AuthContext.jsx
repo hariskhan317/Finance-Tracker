@@ -6,21 +6,23 @@ const AuthContext = createContext(null);
 export const AuthProvider = ({ children }) => {
     const [ islogin, setIsLogin ] = useState(false); 
     const [isUser, setIsUser] = useState(null);
-    
-    const handleAuthStatus = useCallback(async () => {
-        try {
-            const data = await checkAuthStatus();
-            if (data) {
-                setIsLogin(true);
-                setIsUser({ name: data.name, email: data.email });
-            } else {
+
+    useEffect(() => {
+        const handleAuthStatus = async () => {
+            try {
+                const data = await checkAuthStatus();
+                if (data) {
+                    setIsLogin(true);
+                    setIsUser({ name: data.name, email: data.email });
+                } 
                 setIsLogin(false);
                 setIsUser(null);
+            } catch (error) {
+                console.error("Error checking auth status:", error);
             }
-        } catch (error) {
-            console.error("Error checking auth status:", error);
         }
-    }, []);
+        handleAuthStatus();
+    }, [])
   
     const signup = useCallback(async (name, email, password) => {
         try {
