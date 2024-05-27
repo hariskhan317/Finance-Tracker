@@ -39,7 +39,9 @@ export const userSignup = async (req, res) => {
         const user = new User({ name, email, password: hashPassword })
         await user.save();
 
-        res.clearCookie('auth_token');
+        res.clearCookie('auth_token',
+        { httpOnly: true, secure: true, sameSite: 'None' }
+        );
         const expiryDate = new Date(Date.now() + 36000000); // 1 day
         const token = createToken(user._id, user.email); 
         
@@ -66,7 +68,7 @@ export const userLogin = async (req, res) => {
             return res.status(422).send({ message: 'Password is not same' });
         } 
 
-        res.clearCookie('auth_token') 
+        res.clearCookie('auth_token',        { httpOnly: true, secure: true, sameSite: 'None' }) 
         const expiryDate = new Date(Date.now() + 36000000); // 1 day
         const token = createToken(user._id, user.email); 
 
@@ -90,7 +92,9 @@ export const userLogout = async (req, res) => {
         if (user._id.toString() !== res.locals.jwtData.id) {
             return res.status(400).send({ message: 'Not same' });
         }
-        return res.clearCookie('auth_token').status(200).json({ status: 200 });
+        return res.clearCookie('auth_token',
+            { httpOnly: true, secure: true, sameSite: 'None' }
+            ).status(200).json({ status: 200 });
     } catch (error) {
         return res.status(500).send({ message: 'Internal Server Error', cause:error.message });
     }
