@@ -84,6 +84,7 @@ export const userLogin = async (req, res) => {
 export const userLogout = async (req, res) => {
     try {
         const user = await User.findById(res.locals.jwtData.id);
+        console.log("working")
         if (!user) {
             return res.status(400).send({ message: 'Cant find user' });
         }
