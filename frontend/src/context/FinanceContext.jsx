@@ -6,6 +6,7 @@ const FinanceContext = createContext(null);
 
 export const FinanceProvider = ({ children }) => {
     const auth = useAuth();
+    console.log('userrr', auth.isUser);
     const [budgets, setBudgets] = useState([]);
     const [expenses, setExpenses] = useState([]);
 
@@ -74,7 +75,7 @@ export const FinanceProvider = ({ children }) => {
         getBudgetList();
         getExpenseList();
 
-    },[auth.islogin])
+    },[auth.isUser])
 
 
 
