@@ -5,7 +5,7 @@ const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
     const [ islogin, setIsLogin ] = useState(false); 
-    const [isUser, setIsUser] = useState({});
+    const [isUser, setIsUser] = useState(null);
     
     const handleAuthStatus = useCallback(async () => {
         try {
