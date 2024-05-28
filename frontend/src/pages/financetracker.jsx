@@ -15,8 +15,7 @@ const FinanceTracker = () => {
     <div className='mx-auto max-w-8xl 2xl:max-w-7xl px-12 2xl:px-8 py-10'> 
       <div className='flex pt-4 pb-8 justify-between'> 
         <h1 className='text-4xl font-semibold capitalize'>Welcome {auth?.isUser?.name}!</h1> 
-      </div>
-      {/* CreateBudget and NewExpense component */}
+      </div> 
       <div className='grid grid-cols-1 md:grid-cols-2 gap-8 mt-6'>
         <CreateBudget />
         <NewExpense finance={finance} />
