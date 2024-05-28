@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import Auth from './pages/auth.jsx';
 import FinanceTracker from './pages/financetracker.jsx';
-// import PrivateRoute from './utils/PrivateRoute.jsx'
+import PrivateRoute from './utils/PrivateRoute.jsx'
 // import PageNotFound from './components/shared/PageNotFound.jsx'
 import Header from './components/shared/Header.jsx' 
 import { useAuth } from './context/AuthContext.jsx'; 
@@ -12,8 +12,17 @@ function App() {
     <>
       <Header />
       <Routes>  
+        <Route
+            path="/financetracker"
+            element={
+              <PrivateRoute>
+                <FinanceTracker />
+              </PrivateRoute>
+            }
+        />
         <Route path="/" element={<Auth />} />  
-        {auth.isUser && auth.islogin && <Route path="/financetracker" element={<FinanceTracker />} />} 
+        {/* {auth.isUser && auth.islogin && <Route path="/financetracker" element={<FinanceTracker />} />}  */}
+        {/* <Route path="*" element={<PageNotFound />} /> */}
       </Routes>
     </>
   )
