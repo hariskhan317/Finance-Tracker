@@ -5,9 +5,8 @@
     ],
     "routes": [
         {
-            "rewrites": [
-                {"source": "/:a*", "destination": "/"}
-              ]
+            "src": "/(.*)",
+            "dest": "/"
         }
     ]
 }
