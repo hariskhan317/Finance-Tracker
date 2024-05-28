@@ -101,10 +101,8 @@ export const userLogout = async (req, res) => {
         if (user._id.toString() !== userId) {
             return res.status(400).send({ message: 'User ID mismatch' });
         }
- 
-        res.clearCookie('auth_token', { httpOnly: true, secure: true });
 
-        return res.status(200).json({ message: 'OK', name: user.name, email: user.email });
+        return res.clearCookie('auth_token').status(200).json({ message: 'OK', name: user.name, email: user.email });
     } catch (error) {
         console.error('Error during logout:', error);
         return res.status(500).send({ message: 'Internal Server Error', cause: error.message });
