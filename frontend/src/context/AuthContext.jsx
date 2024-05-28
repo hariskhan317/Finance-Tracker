@@ -49,7 +49,7 @@ export const AuthProvider = ({ children }) => {
         await userLogout();  
         setIsLogin(false);
         setIsUser(null); 
-        window.location.reload();
+        window.location.href = '/';
     }
 
     useEffect(() => {
