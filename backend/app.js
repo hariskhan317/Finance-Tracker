@@ -9,6 +9,8 @@ const app = express();
 
 config();
 
+app.use('/api/v1', appRouter);
+
 app.use(cors({
     origin: "https://finance-tracker-frontend-wine.vercel.app",
     methods: ["GET", "POST", "PUT", "DELETE"],
@@ -30,7 +32,7 @@ mongooseConnection()
     .then(() => console.log('Connected successfully'))
     .catch((error) => console.log("Can't connect", error));
 
-app.use('/api/v1', appRouter);
+
 
 const PORT = process.env.PORT || 8000;
 
