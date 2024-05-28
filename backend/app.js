@@ -1,7 +1,8 @@
 import express from 'express';
-import appRouter from './routes/index.js';
 import { config } from 'dotenv';
 import cookieParser from 'cookie-parser';
+import appRouter from './routes/index.js';
+import {mongooseConnection} from './database/index.js'
 import cors from 'cors' 
 const app = express();
 
@@ -16,4 +17,18 @@ app.use(cors({
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(express.json());
 app.use('/api/v1', appRouter);
-export default app;
+
+
+mongooseConnection()
+    .then(() => console.log('Connected successfully'))
+    .catch((error) => console.log("Can't connect", error))
+
+const PORT = process.env.PORT || 8000;
+
+app.listen(PORT, () => {
+    try {
+        console.log(`listening to port ${PORT}`);
+    }catch (error) {
+        console.log(error);
+    }
+})
