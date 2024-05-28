@@ -10,19 +10,18 @@ config();
 
 app.use(cors({
     origin: ["https://finance-tracker-frontend-wine.vercel.app"],
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    methods: "any",
     credentials: true
 }));
-
-app.use(cookieParser(process.env.COOKIE_SECRET));
-app.use(express.json());
-app.use('/api/v1', appRouter);
-
 
 mongooseConnection()
     .then(() => console.log('Connected successfully'))
     .catch((error) => console.log("Can't connect", error))
 
+app.use(cookieParser(process.env.COOKIE_SECRET));
+app.use(express.json());
+app.use('/api/v1', appRouter);
+    
 const PORT = process.env.PORT || 8000;
 
 app.listen(PORT, () => {
