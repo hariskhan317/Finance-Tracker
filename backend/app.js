@@ -7,8 +7,6 @@ const app = express();
 
 config();
 
-
-
 app.use(cors({
     origin: ["https://finance-tracker-frontend-omega.vercel.app"],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
