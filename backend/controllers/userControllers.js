@@ -46,8 +46,8 @@ export const userSignup = async (req, res) => {
         return res.cookie('auth_token', token, {
             expires: expiryDate,
             httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-            sameSite: 'None',
+            // secure: process.env.NODE_ENV === 'production',
+            // sameSite: 'None',
         }).status(200).send({ status: 200, message: "Successfull SignUp!", name: user.name, email: user.email });
     } catch (error) {
         return res.status(500).send({    message: 'Internal Server Error', cause:error.message });
@@ -73,8 +73,8 @@ export const userLogin = async (req, res) => {
         return res.cookie('auth_token', token, {
             expires: expiryDate,
             httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-            sameSite: 'None',
+            // secure: process.env.NODE_ENV === 'production',
+            // sameSite: 'None',
         }).status(200).send({ status: 200, message: "Successfull Login!", name: user.name, email: user.email });
     } catch (error) {
         return res.status(500).send({ message: 'Internal Server Error', cause:error.message });
@@ -83,15 +83,30 @@ export const userLogin = async (req, res) => {
 
 export const userLogout = async (req, res) => {
     try {
-        const user = await User.findById(res.locals.jwtData.id); 
+        console.log('Starting userLogout');
+
+        // Check for jwtData in res.locals
+        const userId = res.locals.jwtData?.id;
+        if (!userId) { 
+            return res.status(400).send({ message: 'JWT data not found' });
+        }
+
+        const user = await User.findById(userId);
+        console.log('Found user:', user);
+
         if (!user) {
-            return res.status(400).send({ message: 'Cant find user' });
+            return res.status(400).send({ message: 'Cannot find user' });
         }
-        if (user._id.toString() !== res.locals.jwtData.id) {
-            return res.status(400).send({ message: 'Not same' });
+
+        if (user._id.toString() !== userId) {
+            return res.status(400).send({ message: 'User ID mismatch' });
         }
-        return res.clearCookie('auth_token',{ httpOnly: true, secure: true } ).status(200).json({ message: "OK", name: user.name, email: user.email });
+ 
+        res.clearCookie('auth_token', { httpOnly: true, secure: true });
+
+        return res.status(200).json({ message: 'OK', name: user.name, email: user.email });
     } catch (error) {
-        return res.status(500).send({ message: 'Internal Server Error', cause:error.message });
+        console.error('Error during logout:', error);
+        return res.status(500).send({ message: 'Internal Server Error', cause: error.message });
     }
-}
+};

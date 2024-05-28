@@ -46,8 +46,6 @@ export const AuthProvider = ({ children }) => {
     }, [handleAuthStatus]);
 
     const logout = async () => {
-
-        console.log('logout');
         await userLogout();
         setIsLogin(false);
         setIsUser(null);
@@ -55,7 +53,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     useEffect(() => {
-        handleAuthStatus();
+        handleAuthStatus();   
     }, [])
 
     const authValue = {

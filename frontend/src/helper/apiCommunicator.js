@@ -38,13 +38,8 @@ export const userApiLogin = async (email, password) => {
 
 export const userLogout = async() => {
     try {
-        const response = await axios.post('/user/logout');
-        if (res.status !== 200) {
-            throw new Error("Unable to logout");
-        }
-        console.log({response})
-        const data = response.data;
-        return data;
+        await axios.post('/user/logout');
+        
     } catch (error) {
         console.log(error)
     } 
