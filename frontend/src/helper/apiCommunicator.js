@@ -38,12 +38,14 @@ export const userApiLogin = async (email, password) => {
 
 export const userLogout = async() => {
     try {
-        await axios.post('/user/logout');
-        
+        const response = await axios.post('/user/logout');
+        const data = await response.data;
+        return data;
     } catch (error) {
         console.log(error)
     } 
 }
+
 
 export const addBudgetApi = async(budgetName, budgetAmount, color) => {
     try {

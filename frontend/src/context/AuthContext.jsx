@@ -44,12 +44,13 @@ export const AuthProvider = ({ children }) => {
             console.error("Error during login:", error);
         }
     }, [handleAuthStatus]);
-
-    const logout = async () => {
-        await userLogout();
+    
+    const logout = async() => {
+        const data = await userLogout(); 
         setIsLogin(false);
         setIsUser(null);
-        return window.location.href = "/";
+        window.location.href = '/';
+        return data;
     }
 
     useEffect(() => {
