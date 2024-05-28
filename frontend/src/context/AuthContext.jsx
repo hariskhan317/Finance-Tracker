@@ -46,16 +46,12 @@ export const AuthProvider = ({ children }) => {
     }, [handleAuthStatus]);
 
     const logout = async () => {
-        try { 
-            const data = await userLogout();
-            if (data.status === 200) { 
-                setIsLogin(false);
-                setIsUser(null);
-                return window.location.href = "/";
-            }
-        } catch (error) {
-            console.error("Error during logout:", error);
-        }
+
+        console.log('logout');
+        await userLogout();
+        setIsLogin(false);
+        setIsUser(null);
+        return window.location.href = "/";
     }
 
     useEffect(() => {

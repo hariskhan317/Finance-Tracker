@@ -10,7 +10,6 @@ const FinanceTracker = () => {
   const auth = useAuth();
   const finance = useFinance();
 
-
   return (
     <div className='mx-auto max-w-8xl 2xl:max-w-7xl px-12 2xl:px-8 py-10'> 
       <div className='flex pt-4 pb-8 justify-between'> 

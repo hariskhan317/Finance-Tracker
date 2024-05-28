@@ -83,15 +83,14 @@ export const userLogin = async (req, res) => {
 
 export const userLogout = async (req, res) => {
     try {
-        const user = await User.findById(res.locals.jwtData.id);
-        console.log("working")
+        const user = await User.findById(res.locals.jwtData.id); 
         if (!user) {
             return res.status(400).send({ message: 'Cant find user' });
         }
         if (user._id.toString() !== res.locals.jwtData.id) {
             return res.status(400).send({ message: 'Not same' });
         }
-        return res.clearCookie('auth_token',{ httpOnly: true, secure: true, sameSite: 'None' } ).status(200).json({ status: 200 });
+        return res.clearCookie('auth_token',{ httpOnly: true, secure: true } ).status(200).json({ message: "OK", name: user.name, email: user.email });
     } catch (error) {
         return res.status(500).send({ message: 'Internal Server Error', cause:error.message });
     }
