@@ -30,7 +30,7 @@ export const AuthProvider = ({ children }) => {
         } catch (error) {
             console.error("Error during signup:", error);
         }
-    }
+    } 
 
     const login = async (email, password) => {
         try {
@@ -48,8 +48,8 @@ export const AuthProvider = ({ children }) => {
     const logout = async() => {
         await userLogout();  
         setIsLogin(false);
-        setIsUser(null);  
-        //return window.location.href = '/';
+        setIsUser(null); 
+        window.location.href = '/';
     }
 
     useEffect(() => {
