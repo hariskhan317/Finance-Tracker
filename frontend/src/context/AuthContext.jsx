@@ -47,9 +47,9 @@ export const AuthProvider = ({ children }) => {
 
     const logout = async() => {
         await userLogout();  
+        window.location.href = '/';
         setIsLogin(false);
         setIsUser(null); 
-        window.location.href = '/';
     }
 
     useEffect(() => {
