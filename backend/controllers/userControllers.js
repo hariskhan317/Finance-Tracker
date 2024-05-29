@@ -83,26 +83,8 @@ export const userLogin = async (req, res) => {
 
 export const userLogout = async (req, res) => {
     try {
-        console.log('Starting userLogout');
 
-        // Check for jwtData in res.locals
-        const userId = res.locals.jwtData?.id;
-        if (!userId) { 
-            return res.status(400).send({ message: 'JWT data not found' });
-        }
-
-        const user = await User.findById(userId);
-        console.log('Found user:', user);
-
-        if (!user) {
-            return res.status(400).send({ message: 'Cannot find user' });
-        }
-
-        if (user._id.toString() !== userId) {
-            return res.status(400).send({ message: 'User ID mismatch' });
-        }
-
-        return res.clearCookie('auth_token').status(200).json({ message: 'OK', name: user.name, email: user.email });
+        return res.clearCookie('auth_token').status(200).send('Logout');
     } catch (error) {
         console.error('Error during logout:', error);
         return res.status(500).send({ message: 'Internal Server Error', cause: error.message });
