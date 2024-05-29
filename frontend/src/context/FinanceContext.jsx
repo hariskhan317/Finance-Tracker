@@ -60,7 +60,7 @@ export const FinanceProvider = ({ children }) => {
         } catch (error) {
             console.error("Error deleting expense:", error);
         }
-    }, [fetchExpenses]);
+    }, [fetchBudgets, fetchExpenses]);
 
     const deleteBudget = useCallback(async (budgetId) => {
         try {
