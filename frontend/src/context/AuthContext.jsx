@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }) => {
         }
     }
   
-    const signup = useCallback(async (name, email, password) => {
+    const signup = async (name, email, password) => {
         try {
             const data = await userApiSignup(name, email, password);
             if (data.status === 200) {
@@ -30,9 +30,9 @@ export const AuthProvider = ({ children }) => {
         } catch (error) {
             console.error("Error during signup:", error);
         }
-    }, [handleAuthStatus]);
+    }
 
-    const login = useCallback(async (email, password) => {
+    const login = async (email, password) => {
         try {
             const data = await userApiLogin(email, password);
             if (data.status === 200) {
@@ -43,7 +43,7 @@ export const AuthProvider = ({ children }) => {
         } catch (error) {
             console.error("Error during login:", error);
         }
-    }, [handleAuthStatus]);
+    }
 
     const logout = async() => {
         await userLogout();  
