@@ -73,11 +73,9 @@ export const FinanceProvider = ({ children }) => {
     }, [fetchBudgets]);
 
     useEffect(() => {
-        if (auth.isUser) {
-            fetchBudgets();
-            fetchExpenses();
-        }
-    }, [fetchBudgets, fetchExpenses]);
+        fetchBudgets();
+        fetchExpenses();
+    }, [fetchBudgets, fetchExpenses, auth.isUser]);
 
     const financeValue = {
         budgets,
