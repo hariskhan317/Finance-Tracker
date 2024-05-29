@@ -56,11 +56,12 @@ export const FinanceProvider = ({ children }) => {
     const deleteExpense = useCallback(async (expenseId) => {
         try {
             await deleteExpenseApi(expenseId);
+            fetchBudgets();
             fetchExpenses();
         } catch (error) {
             console.error("Error deleting expense:", error);
         }
-    }, [fetchBudgets, fetchExpenses]);
+    }, [fetchExpenses]);
 
     const deleteBudget = useCallback(async (budgetId) => {
         try {
