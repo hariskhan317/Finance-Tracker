@@ -57,7 +57,7 @@ export const AuthProvider = ({ children }) => {
             handleAuthStatus();
         }
        
-    }, [islogin, isUser])
+    }, [])
 
     const authValue = {
         login,

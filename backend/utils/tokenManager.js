@@ -7,7 +7,7 @@ export const createToken = (id, email) => {
 }
 
 export const verifyToken = async(req,res, next) => {
-    const token = await req.cookies.auth_token;  
+    const token = await req.cookies.auth_token;   
     if (!token) {
         return res.status(422).send('Cant find the token');
     }
