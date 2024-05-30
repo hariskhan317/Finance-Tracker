@@ -43,7 +43,7 @@ const CreateBudget = () => {
                         <input className="appearance-none block w-full bg-gray-200 text-gray-700 border-2 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="budgetAmount" type="number" placeholder="Amount" />
                     </div>
                     <div className='flex justify-start mt-5'>
-                        <button type="submit" className='flex justify-center gap-2 py-2 px-4 w-auto rounded font-medium bg-black text-white'>
+                        <button type="submit" className='flex justify-center gap-2 py-2 px-4 w-auto rounded font-medium bg-black text-white relative z-50 hover:bg-white hover:text-black border-2 border-black '>
                             <BiCalculator className='mt-0.5 text-lg' />
                             Create Budget
                         </button>

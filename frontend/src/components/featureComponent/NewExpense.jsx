@@ -67,7 +67,7 @@ const NewExpense = ({ finance }) => {
                         </div>
                     </div>
                     <div className='flex justify-start mt-5'>
-                        <button type="submit" className='flex justify-center gap-2 py-2 px-4 w-auto rounded font-medium bg-black text-white'>
+                        <button type="submit" className='flex justify-center gap-2 py-2 px-4 w-auto rounded font-medium bg-black text-white relative z-50 hover:bg-white hover:text-black border-2 border-black'>
                             <MdOutlineAttachMoney className='mt-0.5 text-lg' />
                             Add Expense
                         </button>
