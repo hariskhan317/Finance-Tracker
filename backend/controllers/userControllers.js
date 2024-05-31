@@ -49,7 +49,7 @@ export const userSignup = async (req, res) => {
         
         return res.cookie('auth_token', token, {
             expires: expiryDate,
-            httpOnly: true, 
+            httpOnly: true,  
             secure: process.env.NODE_ENV === 'production',
             sameSite: 'None',
         }).status(200).send({ status: 200, message: "Successfull SignUp!", name: user.name, email: user.email });
