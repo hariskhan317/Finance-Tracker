@@ -40,24 +40,18 @@ export const userSignup = async (req, res) => {
         await user.save();
 
         res.clearCookie('auth_token', {
-            httpOnly: true,
+            httpOnly: true, 
             secure: process.env.NODE_ENV === 'production',
-            sameSite: 'None',
-            domain: '.vercel.app', // Correct domain for Vercel
-            signed: true,
-            path: "/",
+            sameSite: 'None', 
         });
         const expiryDate = new Date(Date.now() + 36000000); // 1 day
         const token = createToken(user._id, user.email); 
         
         return res.cookie('auth_token', token, {
             expires: expiryDate,
-            httpOnly: true,
+            httpOnly: true, 
             secure: process.env.NODE_ENV === 'production',
             sameSite: 'None',
-            domain: '.vercel.app', // Correct domain for Vercel
-            signed: true,
-            path: "/", 
         }).status(200).send({ status: 200, message: "Successfull SignUp!", name: user.name, email: user.email });
     } catch (error) {
         return res.status(500).send({    message: 'Internal Server Error', cause:error.message });
@@ -77,24 +71,18 @@ export const userLogin = async (req, res) => {
         } 
 
         res.clearCookie('auth_token', { 
-            httpOnly: true,
+            httpOnly: true, 
             secure: process.env.NODE_ENV === 'production',
-            sameSite: 'None',
-            domain: '.vercel.app', // Correct domain for Vercel
-            signed: true,
-            path: "/", 
+            sameSite: 'None', 
         }) 
         const expiryDate = new Date(Date.now() + 36000000); // 1 day
         const token = createToken(user._id, user.email); 
 
         return res.cookie('auth_token', token, {
             expires: expiryDate,
-            httpOnly: true,
+            httpOnly: true, 
             secure: process.env.NODE_ENV === 'production',
             sameSite: 'None',
-            domain: '.vercel.app', // Correct domain for Vercel
-            signed: true,
-            path: "/",
         }).status(200).send({ status: 200, message: "Successfull Login!", name: user.name, email: user.email });
     } catch (error) {
         return res.status(500).send({ message: 'Internal Server Error', cause:error.message });
@@ -121,13 +109,10 @@ export const userLogout = async (req, res) => {
             return res.status(400).send({ message: 'User ID mismatch' });
         }
 
-        return res.clearCookie('auth_token', { 
+        return res.clearCookie('auth_token', {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
-            sameSite: 'None',
-            domain: '.vercel.app', // Correct domain for Vercel
-            signed: true,
-            path: "/", 
+            sameSite: 'None', 
         }).status(200).json({ message: 'OK', name: user.name, email: user.email });
     } catch (error) {
         console.error('Error during logout:', error);
