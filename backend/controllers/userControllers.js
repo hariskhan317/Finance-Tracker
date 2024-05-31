@@ -42,22 +42,16 @@ export const userSignup = async (req, res) => {
         res.clearCookie('auth_token', {
             httpOnly: true, 
             secure: process.env.NODE_ENV === 'production',
-            sameSite: 'None', 
-            domain: 'finance-tracker-nine-murex.vercel',
-            signed: true,
-            path: "/",
+            sameSite: 'None',  
         });
         const expiryDate = new Date(Date.now() + 36000000); // 1 day
         const token = createToken(user._id, user.email); 
         
         return res.cookie('auth_token', token, {
             expires: expiryDate,
-            httpOnly: true,  
+            httpOnly: true, 
             secure: process.env.NODE_ENV === 'production',
-            sameSite: 'None',
-            domain: 'finance-tracker-nine-murex.vercel',
-            signed: true,
-            path: "/",
+            sameSite: 'None',  
         }).status(200).send({ status: 200, message: "Successfull SignUp!", name: user.name, email: user.email });
     } catch (error) {
         return res.status(500).send({    message: 'Internal Server Error', cause:error.message });
@@ -80,9 +74,6 @@ export const userLogin = async (req, res) => {
             httpOnly: true, 
             secure: process.env.NODE_ENV === 'production',
             sameSite: 'None',  
-            domain: 'finance-tracker-nine-murex.vercel',
-            signed: true,
-            path: "/",
         }) 
         const expiryDate = new Date(Date.now() + 36000000); // 1 day
         const token = createToken(user._id, user.email); 
@@ -91,10 +82,7 @@ export const userLogin = async (req, res) => {
             expires: expiryDate,
             httpOnly: true, 
             secure: process.env.NODE_ENV === 'production',
-            sameSite: 'None',
-            domain: 'finance-tracker-nine-murex.vercel',
-            signed: true,
-            path: "/",
+            sameSite: 'None',  
         }).status(200).send({ status: 200, message: "Successfull Login!", name: user.name, email: user.email });
     } catch (error) {
         return res.status(500).send({ message: 'Internal Server Error', cause:error.message });
@@ -121,13 +109,10 @@ export const userLogout = async (req, res) => {
             return res.status(400).send({ message: 'User ID mismatch' });
         }
 
-        return res.clearCookie('auth_token', {
-            httpOnly: true,
+        return res.clearCookie('auth_token', { 
+            httpOnly: true, 
             secure: process.env.NODE_ENV === 'production',
             sameSite: 'None', 
-            domain: 'finance-tracker-nine-murex.vercel',
-            signed: true,
-            path: "/",
         }).status(200).json({ message: 'OK', name: user.name, email: user.email });
     } catch (error) {
         console.error('Error during logout:', error);
