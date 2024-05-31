@@ -20,14 +20,14 @@ const CreateBudget = () => {
         const color = generateRandomColor();
         try {
             const data = await finance.addBudget(budgetName, budgetAmount, color);
-        if (data.status === 200) { 
-            return toast.success(`Successfully Added ${budgetName}!`);
-        } 
-        return toast.error('Cant Add');
-        } catch (error) {
-            console.log(error);
-        }
-  
+            console.log(data);
+            if (data.status === 200) { 
+                return toast.success(`Successfully Added ${budgetName}!`);
+            } 
+            return toast.error('Cant Add');
+            } catch (error) {
+                console.log(error);
+            }
     }
     return (
         <div className='bg-gray-100/50 rounded-lg p-3 shadow-lg'>

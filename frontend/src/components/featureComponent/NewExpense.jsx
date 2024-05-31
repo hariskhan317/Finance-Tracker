@@ -27,11 +27,12 @@ const NewExpense = ({ finance }) => {
         }
    
         try {
-        const data = await finance.addExpense(expenseName, budgetName, expenseAmount, date, color);
-        if (data.status === 200) { 
-            return toast.success('Successfully Added!');
-        } 
-        return toast.error('Cant Add');
+            const data = await finance.addExpense(expenseName, budgetName, expenseAmount, date, color);
+            console.log(data);
+            if (data.status === 200) { 
+                return toast.success('Successfully Added!');
+            } 
+            return toast.error('Cant Add');
         } catch (error) {
         console.log(error);
         }
