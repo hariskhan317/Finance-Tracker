@@ -41,7 +41,7 @@ export const userSignup = async (req, res) => {
 
         res.clearCookie('auth_token', {
             httpOnly: true, 
-            secure: process.env.NODE_ENV === 'production',
+            secure: false,
             sameSite: 'None', 
         });
         const expiryDate = new Date(Date.now() + 36000000); // 1 day
@@ -50,7 +50,7 @@ export const userSignup = async (req, res) => {
         return res.cookie('auth_token', token, {
             expires: expiryDate,
             httpOnly: true,  
-            secure: process.env.NODE_ENV === 'production',
+            secure: false,
             sameSite: 'None',
         }).status(200).send({ status: 200, message: "Successfull SignUp!", name: user.name, email: user.email });
     } catch (error) {
@@ -72,7 +72,7 @@ export const userLogin = async (req, res) => {
 
         res.clearCookie('auth_token', { 
             httpOnly: true, 
-            secure: process.env.NODE_ENV === 'production',
+            secure: false,
             sameSite: 'None', 
         }) 
         const expiryDate = new Date(Date.now() + 36000000); // 1 day
@@ -81,7 +81,7 @@ export const userLogin = async (req, res) => {
         return res.cookie('auth_token', token, {
             expires: expiryDate,
             httpOnly: true, 
-            secure: process.env.NODE_ENV === 'production',
+            secure: false,
             sameSite: 'None',
         }).status(200).send({ status: 200, message: "Successfull Login!", name: user.name, email: user.email });
     } catch (error) {
@@ -111,7 +111,7 @@ export const userLogout = async (req, res) => {
 
         return res.clearCookie('auth_token', {
             httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
+            secure: false,
             sameSite: 'None', 
         }).status(200).json({ message: 'OK', name: user.name, email: user.email });
     } catch (error) {
